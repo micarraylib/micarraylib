@@ -22,14 +22,14 @@ class Dataset:
         dataset (soundata.Dataset)
     """
 
-    def __init__(self, name, data_home, fs, array_format, array_coords, download=True)
+    def __init__(self, name, data_home, fs, array_format, array_coords, download=True):
 
         dataset = _initialize(name, data_home, download)
         self.dataset = dataset
         self.array_format = array_format
         self.fs = 48000
-        self.array_coords = array_coords
         self.array_names = list(array_coords.keys())
+        self.array_coords = array_coords
         self.array_capsules = {a:list(array_coords[a].keys()) for a in array_coords.keys()}
 
 def _initialize(name, data_home=None, download=True):

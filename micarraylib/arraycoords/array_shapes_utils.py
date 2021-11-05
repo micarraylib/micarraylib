@@ -112,11 +112,11 @@ def _cart2polar(coords_dict):
     """
     Take a dictionary with microphone array 
     capsules and cartesian coordinates, and convert
-    to polar: elevation (radians), azimuth (radians), radius
+    to polar: colatitude (radians), azimuth (radians), radius
     """
     return {
         m: [
-            math.pi/2 - math.acos(c[2]/math.sqrt(c[0]**2+c[1]**2+c[2]**2)),
+            math.acos(c[2]/math.sqrt(c[0]**2+c[1]**2+c[2]**2)),
             math.atan(c[1]/c[0]) if c[0] >= 0 else math.atan(c[1]/c[1]) + math.pi,
             math.sqrt(c[0]**2+c[1]**2+c[2]**2) 
 
