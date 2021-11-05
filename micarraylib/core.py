@@ -9,7 +9,7 @@ class Dataset:
             soundata dataset names)
         array_format (dict): a dictionary specifying
             the format (A or B) of the audio files
-        array_coords (dict): a dictionary specifying
+        capsule_coords (dict): a dictionary specifying
             the array's capsule polar coordinates, 
             with the array's physical center at the 
             center of the 3D space.
@@ -29,7 +29,7 @@ class Dataset:
         self.array_format = array_format
         self.fs = 48000
         self.array_names = list(array_coords.keys())
-        self.array_coords = array_coords
+        self.capsule_coords = array_coords
         self.array_capsules = {a:list(array_coords[a].keys()) for a in array_coords.keys()}
 
 def _initialize(name, data_home=None, download=True):
