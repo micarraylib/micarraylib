@@ -4,6 +4,23 @@ Python library to download, standardize, and aggregate existing microphone array
 
 Additionally, micarraylib organizes metadata (i.e. microphone capsule coordinates and hardware name) to be readily accessible. 
 
+IMPORTANT: This software is fully-functional but still being developed and tested. As a result, it is in its pre-release stage. Use with caution (read [LICENSE](https://github.com/micarraylib/micarraylib/blob/main/LICENSE)). Suggestions, requests, and noted-issues are always welcome. 
+
+## How to install
+
+To install, first clone the repo, then navigate to the `micarraylib` directory, and install with pip in editable mode:
+
+```
+$ git clone https://github.com/micarraylib/micarraylib.git
+
+$ cd micarraylib
+
+$ pip install -e .
+
+```
+
+
+
 ## License
 Shield: [![CC BY 4.0][cc-by-shield]][cc-by]
 
