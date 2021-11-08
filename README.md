@@ -24,8 +24,12 @@ $ pip install -e .
 
 ```
 ```
+The same code works with the 2019, 2020, and 2021 versions of the dataset. Just use the desired year.
 
-2. w
+2. Obtaining clips for each of the microphone arrays used in the 3D-MARCo dataset in the original A format (raw microphone capsule recordings) and encoding them to B format.
+```
+```
+
 
 ## Supported datasets
 
