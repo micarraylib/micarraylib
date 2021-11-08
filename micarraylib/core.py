@@ -45,6 +45,8 @@ class Dataset:
 
     def __init__(self, name, fs, array_format, capsule_coords, download=True, data_home=None):
 
+        if download == False and data_home == None:
+            raise ValueError('You must specify the directory with the data in data_home if you do not want to download it.')
         self.name = name
         self.dataset = _initialize(name, data_home, download)
         self.fs = fs
