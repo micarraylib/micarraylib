@@ -20,8 +20,12 @@ $ pip install -e .
 
 ## Example uses
 
+1. Obtaining DCASE task 3 clips and sound event annotations in A and B formats (no ambisonics encoding used since the dataset natively exists in A and B formats).
+
 ```
 ```
+
+2. w
 
 ## Supported datasets
 
