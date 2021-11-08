@@ -23,12 +23,20 @@ $ pip install -e .
 ```
 ```
 
+## Supported datasets
+
+- DCASE task 3 2019 
+- DCASE(3) 2020
+- DCASE(3) 2021
+- 3D-MARCo
+- EigenScape
+
 ## Citing
 ```
 @article{romanmicarraylib,
-  title={MICARRAYLIB: SOFTWARE FOR REPRODUCIBLE 
-  AGGREGATION, STANDARDIZATION, AND SIGNAL 
-  PROCESSING OF MICROPHONE ARRAY DATASETS},
+  title={Micarraylib: Software for Reproducible 
+  Aggregation, Standardization, and Signal 
+  Processing of Microphone Array Datasets},
   author={Roman, Iran R and Bello, Juan Pablo},
   year={2021},
 }
