@@ -26,8 +26,8 @@ $ pip install -e .
 ## Supported datasets
 
 - DCASE task 3 2019 
-- DCASE(3) 2020
-- DCASE(3) 2021
+- DCASE task 3 2020
+- DCASE task 3 2021
 - 3D-MARCo
 - EigenScape
 
