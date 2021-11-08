@@ -33,6 +33,7 @@ $ pip install -e .
   year={2021},
 }
 ```
+Our DCASE 2021 paper can be found [here](http://dcase.community/documents/workshop2021/proceedings/DCASE2021Workshop_Roman_59.pdf)
 
 
 ## License
