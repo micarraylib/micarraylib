@@ -16,9 +16,22 @@ $ git clone https://github.com/micarraylib/micarraylib.git
 $ cd micarraylib
 
 $ pip install -e .
-
 ```
 
+## Example uses
+
+```
+```
+
+## Citing
+```
+@article{romanmicarraylib,
+  title={MICARRAYLIB: SOFTWARE FOR REPRODUCIBLE AGGREGATION, STANDARDIZATION, AND SIGNAL PROCESSING OF MICROPHONE ARRAY DATASETS},
+  author={Roman, Iran R and Bello, Juan Pablo},
+  year={2021},
+}
+
+```
 
 
 ## License
