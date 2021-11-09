@@ -34,11 +34,13 @@ The same code works with the 2019, 2020, and 2021 versions of the dataset. Just 
 
 ## Supported datasets
 
-- DCASE task 3 2019 
-- DCASE task 3 2020
-- DCASE task 3 2021
-- 3D-MARCo
-- EigenScape
+| Dataset name      | micarraylib/soundata identifier  |
+| ----------------- | -------------------------------- |
+| DCASE task 3 2019 | `tau2019sse`                     |
+| DCASE task 3 2020 | `tau2020sse_nigens`              |
+| DCASE task 3 2021 | `tau2021sse_nigens`              |
+| 3D-MARCo          | `marco`                          |
+| EigenScape        | `eigenscape` and `eigenscape_raw`|
 
 ## Citing
 ```
