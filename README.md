@@ -1,5 +1,7 @@
 # micarraylib
 
+<img src="docs/img/micarraylib.png" height="100px">
+
 Python library to download, standardize, and aggregate existing microphone array recordings. Using micarraylib, one can encode raw microphone array recordings across different datasets to be in the common ambisonics B-format. micarraylib also standardizes annotations to be in a common convention ([Soundata's Events class conventions](https://soundata.readthedocs.io)). 
 
 Additionally, micarraylib organizes metadata (i.e. microphone capsule coordinates and hardware name) to be readily accessible. 
