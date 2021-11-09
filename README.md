@@ -44,7 +44,7 @@ The same code works with the 2019, 2020, and 2021 versions of the dataset. Just 
 
 ## Citing
 ```
-@article{romanmicarraylib,
+@article{roman2021micarraylib,
   title={Micarraylib: Software for Reproducible 
   Aggregation, Standardization, and Signal 
   Processing of Microphone Array Datasets},
