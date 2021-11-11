@@ -20,6 +20,15 @@ $ cd micarraylib
 $ pip install -e .
 ```
 
+Also install all dependencies
+
+## Tested dependencies
+
+|Python	   | 3.9.7 |
+|librosa   | 0.8.1 |
+|soundata  | 0.1.0 |
+|spaudiopy | 0.1.4 |
+
 ## Example uses
 
 1. Obtaining DCASE task 3 clips and sound event annotations in A and B formats (no ambisonics encoding used since the dataset natively exists in A and B formats).
