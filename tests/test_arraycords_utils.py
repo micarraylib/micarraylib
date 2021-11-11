@@ -1,5 +1,7 @@
 from micarraylib.arraycoords.array_shapes_utils import _deg2rad
 from micarraylib.arraycoords.array_shapes_utils import _polar2cart
+from micarraylib.arraycoords.array_shapes_utils import _cart2polar
+from micarraylib.arraycoords.array_shapes_utils import _centercoords
 from micarraylib import arraycoords
 import math
 import numpy as np
@@ -44,3 +46,37 @@ def test_polar2cart():
         _polar2cart(coords_dict_deg)
     with pytest.raises(ValueError):
         _polar2cart(coords_dict_deg,'foo')
+
+
+
+
+def test_cart2polar():
+    piover180 = math.pi/180
+    # TODO add more items to dictionary in addition to 'a'
+    coords_dict_deg = {'a':[150,45,9]}
+    coords_dict_rad = _deg2rad(coords_dict_deg)
+    coords_dict_cart = {'a':
+        [
+            9*math.sin(150*piover180)*math.cos(45*piover180),
+            9*math.sin(150*piover180)*math.sin(45*piover180),
+            9*math.cos(150*piover180),
+        ]
+    }
+
+    assert all([np.allclose(coords_dict_rad[k],_cart2polar(coords_dict_cart)[k]) for k in coords_dict_cart.keys()])
+    
+    # test the expected directions
+    assert _cart2polar(coords_dict_cart)['a'][0]>np.pi/2
+    assert _cart2polar(coords_dict_cart)['a'][1]>0
+    assert np.allclose(_cart2polar(coords_dict_cart)['a'][2],9)
+
+
+
+
+def test_centercoords():
+    # TODO add more items to dictionary in addition to 'a'
+    coords_dict_deg = {'a':[150,45,9]}
+    coords_dict_cart = _polar2cart(coords_dict_deg,'degrees')
+    coords_dict_centered = _centercoords(coords_dict_cart)
+
+    assert np.allclose(np.mean(np.array([v for v in coords_dict_centered.values()]),axis=0), [0,0,0])

@@ -1,4 +1,4 @@
-from .array_shapes_utils import micarray
+from .core import micarray
 from . import array_shapes_raw
 
 ARRAYNAMES = [
