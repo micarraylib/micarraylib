@@ -1,6 +1,6 @@
 ambeovr_raw = {
-    # inclination, azimuth, radius
-    # (degrees, meters)
+    # colatitude, azimuth, radius
+    # (degrees, degrees, meters)
     "Ch1:FLU": [55, 45, 0.01],
     "Ch2:FRD": [125, -45, 0.01],
     "Ch3:BLD": [125, 135, 0.01],
@@ -8,8 +8,8 @@ ambeovr_raw = {
 }
 
 eigenmike_raw = {
-    # inclination, azimuth, radius
-    # (degrees, meters)
+    # colatitude, azimuth, radius
+    # (degrees, degrees, meters)
     "1": [69, 0, 0.042],
     "2": [90, 32, 0.042],
     "3": [111, 0, 0.042],

@@ -67,8 +67,11 @@ class micarray:
 def _deg2rad(coords_dict):
     """
     Take a dictionary with microphone array 
-    capsules and polar coordinates to
+    capsules and 3D polar coordinates to
     convert them from degrees to radians
+
+    colatitude, azimuth, and radius (radius
+    is left intact)
     """
     return {
         m: [math.radians(c[0]), math.radians(c[1]), c[2]] for m, c in coords_dict.items()
