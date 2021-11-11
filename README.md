@@ -24,11 +24,12 @@ Also install all dependencies
 
 ## Tested dependencies
 
-| --------- | ----- |
-| Python    | 3.9.7 |
-| librosa   | 0.8.1 |
-| soundata  | 0.1.0 |
-| spaudiopy | 0.1.4 |
+|           | version |
+| --------- | ------- |
+| Python    | 3.9.7   |
+| librosa   | 0.8.1   |
+| soundata  | 0.1.0   |
+| spaudiopy | 0.1.4   |
 
 ## Example uses
 
