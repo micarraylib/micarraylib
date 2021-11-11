@@ -42,12 +42,16 @@ def test_micarray_center_coords():
 
 def test_micarray_standard_coords():
 
-    arr = micarray(array_shapes_raw.ambeovr_raw,'polar','degrees')
+    arr = micarray(array_shapes_raw.eigenmike_raw,'polar','degrees')
     arr.standard_coords('cartesian')
     assert np.allclose(np.mean(np.array([c for c in arr.coords_dict.values()]),axis=0),[0,0,0])
     arr.standard_coords('polar')
     assert arr.coords_form == 'polar'
     assert arr.angle_units == 'radians'
+
+    # sanity check on range of angles in polar coordinates
+    assert all([c[0]>0 and c[0]<180 for c in arr.coords_dict.values()])
+    assert all([c[1]<=180 and c[1]>=-180 for c in arr.coords_dict.values()])
 
     # value when form not specified
     with pytest.raises(ValueError):
