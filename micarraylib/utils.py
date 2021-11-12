@@ -22,7 +22,7 @@ def a2b(N, audio_numpy, capsule_coords):
         a numpy array with the encoded B format
     """
 
-    coords_numpy = np.array([c for c in array_coords.values()])
+    coords_numpy = np.array([c for c in capsule_coords.values()])
     SH = sph.sh_matrix(N, coords_numpy[:, 1], coords_numpy[:, 0], "real")
     Y = np.linalg.pinv(SH)
     return np.dot(Y, audio_numpy)
@@ -37,7 +37,8 @@ def _get_audio_numpy(
 
     Args:
         clip_names (list): list of strings with names of clips
-            to be combined
+            to be loaded (and combined if different clips have
+            the recording by different microphone capsules).
         dataset (soundata.Dataset): the soundata dataset where
             the clips can be loaded from
         fmt_in (str): whether the clips originally are in A or B
@@ -65,10 +66,10 @@ def _get_audio_numpy(
     if fmt_out == "B" and N != None and (N + 1) ** 2 > len(clip_names):
         raise ValueError(
             "(N+1)^2 should be less than or equal to the number of channels being combined but (N+1)^2 is {} and len(clip_names) is {}".format(
-                (N + 1) ** 2, len(clip_nameS)
+                (N + 1) ** 2, len(clip_names)
             )
         )
-    if fmt_in != fmt_out and capsule_coords == None:
+    if fmt_in == 'A' and fmt_out == 'B' and capsule_coords == None:
         raise ValueError(
             "To convert between A and B format you must specify capsule coordinates"
         )
@@ -80,9 +81,9 @@ def _get_audio_numpy(
         audio_array = librosa.resample(audio_array, audio_fs, fs)
     if fmt_in == fmt_out:
         if N != None:
-            warnings.warn("N parameter was specified but not used")
+            warnings.warn(UserWarning("N parameter was specified but not used"))
         return audio_array
     if fmt_in == "A" and fmt_out == "B":
-        N = int(np.sqrt(len(clip_names))) if N == None else N
+        N = int(np.sqrt(len(clip_names))-1) if N == None else N
         audio_array = a2b(N, audio_array, capsule_coords)
         return audio_array

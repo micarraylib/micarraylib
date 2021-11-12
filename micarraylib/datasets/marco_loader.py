@@ -60,12 +60,11 @@ class marco(Dataset):
         data_home (str): path to directory where the
             data is (directories must follow
             the soundata index struct)
-        micarray_source_clips (dict): a dictionary with soundata
+        micarray_capsule_clips (dict): a dictionary with soundata
             clips_ids sorted by the microphone array
-            and sound source that they belong to.
+            and capsules that they belong to.
         clips_list (list): a list with the different
-            sound sources in the dataset, available with each
-            of the microphone arrays.
+            clips in the dataset.
     """
 
     def __init__(
@@ -79,7 +78,7 @@ class marco(Dataset):
     ):
         super().__init__(name, fs, array_format, capsule_coords, download, data_home)
 
-        self.micarray_source_clips, self.clips_list = self._sort_clip_ids()
+        self.micarray_capsule_clips, self.clips_list = self._sort_clip_ids()
 
     def _sort_clip_ids(self):
         """
