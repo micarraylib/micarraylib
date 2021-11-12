@@ -4,9 +4,14 @@ from micarraylib.utils import _get_audio_numpy
 import numpy as np
 
 TAUSSE_ARRAYS = ["Eigenmike"]
-tausse_array_format = {m:'A' for m in TAUSSE_ARRAYS}
-tausse_capsule_coords = {m:{} for m in TAUSSE_ARRAYS}
-tausse_capsule_coords['Eigenmike'] = {k:v for k,v in arraycoords.get_array('Eigenmike').standard_coords('polar').items() if k in ['6','10','22','26']}
+tausse_array_format = {m: "A" for m in TAUSSE_ARRAYS}
+tausse_capsule_coords = {m: {} for m in TAUSSE_ARRAYS}
+tausse_capsule_coords["Eigenmike"] = {
+    k: v
+    for k, v in arraycoords.get_array("Eigenmike").standard_coords("polar").items()
+    if k in ["6", "10", "22", "26"]
+}
+
 
 class tau2021sse_nigens(Dataset):
     """
@@ -56,7 +61,16 @@ class tau2021sse_nigens(Dataset):
             clip_ids in the dataset that were recorded
             with each of the microphone arrays.
     """
-    def __init__(self, name='tau2021sse_nigens', fs=24000, array_format=tausse_array_format, capsule_coords=tausse_capsule_coords, download=True, data_home=None):
+
+    def __init__(
+        self,
+        name="tau2021sse_nigens",
+        fs=24000,
+        array_format=tausse_array_format,
+        capsule_coords=tausse_capsule_coords,
+        download=True,
+        data_home=None,
+    ):
         super().__init__(name, fs, array_format, capsule_coords, download, data_home)
 
         self.micarray_clip_ids, self.clips_list = self._sort_clip_ids()
@@ -74,10 +88,10 @@ class tau2021sse_nigens(Dataset):
         """
         clip_ids = self.dataset.clip_ids
         clip_ids = list(set([c[4:] for c in clip_ids]))
-        clip_ids_sorted = {k:{c:[c] for c in clip_ids} for k in TAUSSE_ARRAYS}
+        clip_ids_sorted = {k: {c: [c] for c in clip_ids} for k in TAUSSE_ARRAYS}
         return clip_ids_sorted, clip_ids
 
-    def get_audio_numpy(self, clip_id, micarray='EigenMike', fmt='A', fs=None):
+    def get_audio_numpy(self, clip_id, micarray="EigenMike", fmt="A", fs=None):
         """
         combine single-capsule mono clips to
         form an numpy array with all the audio recorded by
@@ -102,13 +116,35 @@ class tau2021sse_nigens(Dataset):
         if fs == None:
             fs = self.fs
         if micarray not in self.array_names:
-            raise ValueError("micarray is {}, but it should be one of {}".format(micarray, ', '.join(self.array_names)))
-        if not any ([clip_id in s for s in self.clips_list]):
-            raise ValueError("clip_id is {}, but it should be one of {}".format(clip_id, ', '.join(self.clips_list)))
-        if fmt=='A':
-            return _get_audio_numpy([''.join(['mic_',self.micarray_source_clips[micarray][source][0]])], self.dataset, self.array_format[micarray], fmt, self.capsule_coords[micarray], fs=fs)
-        if fmt=='B':
-            return _get_audio_numpy([''.join(['foa_',self.micarray_source_clips[micarray][source][0]])], self.dataset, 'B', fmt, self.capsule_coords[micarray], fs=fs)
+            raise ValueError(
+                "micarray is {}, but it should be one of {}".format(
+                    micarray, ", ".join(self.array_names)
+                )
+            )
+        if not any([clip_id in s for s in self.clips_list]):
+            raise ValueError(
+                "clip_id is {}, but it should be one of {}".format(
+                    clip_id, ", ".join(self.clips_list)
+                )
+            )
+        if fmt == "A":
+            return _get_audio_numpy(
+                ["".join(["mic_", self.micarray_source_clips[micarray][source][0]])],
+                self.dataset,
+                self.array_format[micarray],
+                fmt,
+                self.capsule_coords[micarray],
+                fs=fs,
+            )
+        if fmt == "B":
+            return _get_audio_numpy(
+                ["".join(["foa_", self.micarray_source_clips[micarray][source][0]])],
+                self.dataset,
+                "B",
+                fmt,
+                self.capsule_coords[micarray],
+                fs=fs,
+            )
 
     def get_audio_events(self, source):
         """
@@ -121,9 +157,11 @@ class tau2021sse_nigens(Dataset):
         Returns:
             a soundata.SpatialEvents object
         """
-        if not any ([source in s for s in self.clips_list]):
-            raise ValueError("source is {}, but it should be one of {}".format(source, ', '.join(self.clips_list)))
+        if not any([source in s for s in self.clips_list]):
+            raise ValueError(
+                "source is {}, but it should be one of {}".format(
+                    source, ", ".join(self.clips_list)
+                )
+            )
         all_dataset_clip_names = self.dataset.load_clips()
-        return all_dataset_clip_names[''.join(['foa_', source])].spatial_events
-
-
+        return all_dataset_clip_names["".join(["foa_", source])].spatial_events

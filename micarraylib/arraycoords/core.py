@@ -1,6 +1,7 @@
-from .array_shapes_utils import _deg2rad,_polar2cart,_cart2polar,_centercoords
+from .array_shapes_utils import _deg2rad, _polar2cart, _cart2polar, _centercoords
 import math
 import numpy as np
+
 
 class micarray:
     """
@@ -17,8 +18,10 @@ class micarray:
 
     def __init__(self, coords_dict, coords_form=None, angle_units=None, name=None):
         if coords_form == None:
-            raise ValueError("you must specify the form (cartesian or polar) of your capsule coordinates")
-        if coords_form == 'cartesian' and angle_units!=None:
+            raise ValueError(
+                "you must specify the form (cartesian or polar) of your capsule coordinates"
+            )
+        if coords_form == "cartesian" and angle_units != None:
             raise ValueError("cartesian coordinates do not need angle_units")
         self.name = name
         self.capsule_names = list(coords_dict.keys())
@@ -33,14 +36,14 @@ class micarray:
         Operates in place and returns the coords_dict
         in cartesian form
         """
-        if self.coords_form == 'cartesian':
+        if self.coords_form == "cartesian":
             self.coords_dict = _centercoords(self.coords_dict)
             return self.coords_dict
-        elif self.angle_units == 'degrees':
+        elif self.angle_units == "degrees":
             self.coords_dict = _deg2rad(self.coords_dict)
-            self.angle_units = 'radians'
-        self.coords_dict = _polar2cart(self.coords_dict, 'radians')
-        self.coords_form = 'cartesian'
+            self.angle_units = "radians"
+        self.coords_dict = _polar2cart(self.coords_dict, "radians")
+        self.coords_form = "cartesian"
         self.angle_units = None
         self.coords_dict = _centercoords(self.coords_dict)
         return self.coords_dict
@@ -57,12 +60,11 @@ class micarray:
         """
         if form == None:
             raise ValueError("you must specify a form")
-        if form == 'cartesian':
+        if form == "cartesian":
             return self.center_coords()
-        elif form == 'polar':
+        elif form == "polar":
             self.center_coords()
             self.coords_dict = _cart2polar(self.coords_dict)
-            self.coords_form = 'polar'
-            self.angle_units = 'radians'
+            self.coords_form = "polar"
+            self.angle_units = "radians"
             return self.coords_dict
-

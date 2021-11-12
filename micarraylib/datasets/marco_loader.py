@@ -4,9 +4,21 @@ from micarraylib.utils import _get_audio_numpy
 import numpy as np
 import re
 
-MARCO_ARRAYS = ["OCT3D", "Eigenmike", "PCMA3D", "DeccaCuboid", "2LCube", "Ambeo", "Hamasaki"]
-marco_array_format = {m:'A' for m in MARCO_ARRAYS}
-marco_capsule_coords = {m:arraycoords.get_array(m).standard_coords('polar') for m in MARCO_ARRAYS}
+MARCO_ARRAYS = [
+    "OCT3D",
+    "Eigenmike",
+    "PCMA3D",
+    "DeccaCuboid",
+    "2LCube",
+    "Ambeo",
+    "Hamasaki",
+]
+marco_array_format = {m: "A" for m in MARCO_ARRAYS}
+marco_capsule_coords = {
+    m: arraycoords.get_array(m).standard_coords("polar") for m in MARCO_ARRAYS
+}
+
+
 class marco(Dataset):
     """
     The marco Dataset class
@@ -56,7 +68,15 @@ class marco(Dataset):
             of the microphone arrays.
     """
 
-    def __init__(self, name='marco', fs=48000, array_format=marco_array_format, capsule_coords=marco_capsule_coords, download=True, data_home=None):
+    def __init__(
+        self,
+        name="marco",
+        fs=48000,
+        array_format=marco_array_format,
+        capsule_coords=marco_capsule_coords,
+        download=True,
+        data_home=None,
+    ):
         super().__init__(name, fs, array_format, capsule_coords, download, data_home)
 
         self.micarray_source_clips, self.clips_list = self._sort_clip_ids()
@@ -73,17 +93,28 @@ class marco(Dataset):
             clips_list (list)
         """
         clip_ids = self.dataset.clip_ids
-        clip_ids_split = [c.split('/') for c in clip_ids]
-        clips_list_in_clips = list(set([''.join([c[0],'/',c[1][:4]]) for c in clip_ids_split]))
-        clips_list = [re.sub('([A-Z][a-z]+)', r' \1', re.sub('([A-Z]+)', r' \1', ''.join(s.split('/')))).split()[0] for s in clips_list_in_clips]
-        clip_ids_sorted = {k:{} for k in MARCO_ARRAYS}
+        clip_ids_split = [c.split("/") for c in clip_ids]
+        clips_list_in_clips = list(
+            set(["".join([c[0], "/", c[1][:4]]) for c in clip_ids_split])
+        )
+        clips_list = [
+            re.sub(
+                "([A-Z][a-z]+)",
+                r" \1",
+                re.sub("([A-Z]+)", r" \1", "".join(s.split("/"))),
+            ).split()[0]
+            for s in clips_list_in_clips
+        ]
+        clip_ids_sorted = {k: {} for k in MARCO_ARRAYS}
         for micarray in MARCO_ARRAYS:
             for source, source_clip in zip(clips_list, clips_list_in_clips):
-                clip_ids_sorted[micarray][source] = sorted([c for c in clip_ids if source_clip in c and micarray in c])
+                clip_ids_sorted[micarray][source] = sorted(
+                    [c for c in clip_ids if source_clip in c and micarray in c]
+                )
 
         return clip_ids_sorted, clips_list
 
-    def get_audio_numpy(self, micarray, source, fmt='A', N=None, fs=None):
+    def get_audio_numpy(self, micarray, source, fmt="A", N=None, fs=None):
         """
         combine single-capsule mono clips to
         form an numpy array with all the audio recorded by
@@ -110,8 +141,23 @@ class marco(Dataset):
         if fs == None:
             fs = self.fs
         if micarray not in self.array_names:
-            raise ValueError("micarray is {}, but it should be one of {}".format(micarray, ', '.join(self.array_names)))
-        if not any ([source in s for s in self.clips_list]):
-            raise ValueError("source is {}, but it should be one of {}".format(source, ', '.join(self.clips_list)))
-        return _get_audio_numpy(self.micarray_source_clips[micarray][source], self.dataset, self.array_format[micarray], fmt, self.capsule_coords[micarray], N, fs)
-
+            raise ValueError(
+                "micarray is {}, but it should be one of {}".format(
+                    micarray, ", ".join(self.array_names)
+                )
+            )
+        if not any([source in s for s in self.clips_list]):
+            raise ValueError(
+                "source is {}, but it should be one of {}".format(
+                    source, ", ".join(self.clips_list)
+                )
+            )
+        return _get_audio_numpy(
+            self.micarray_source_clips[micarray][source],
+            self.dataset,
+            self.array_format[micarray],
+            fmt,
+            self.capsule_coords[micarray],
+            N,
+            fs,
+        )

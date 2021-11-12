@@ -2,8 +2,6 @@ from micarraylib import arraycoords
 import pytest
 
 
-
-
 def test_list_micarrays():
 
     ARRAYNAMES = [
@@ -16,13 +14,11 @@ def test_list_micarrays():
         "Hamasaki",
     ]
 
-    assert ARRAYNAMES==arraycoords.list_micarrays()
-
-
+    assert ARRAYNAMES == arraycoords.list_micarrays()
 
 
 def test_get_array():
-    
+
     ARRAYNAMES = [
         "Ambeo",
         "Eigenmike",
@@ -36,4 +32,4 @@ def test_get_array():
     [arraycoords.get_array(arr) for arr in ARRAYNAMES]
 
     with pytest.raises(ValueError):
-        arraycoords.get_array('foo')
+        arraycoords.get_array("foo")
