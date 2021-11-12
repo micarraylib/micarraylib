@@ -30,6 +30,7 @@ Also install all dependencies
 | librosa   | 0.8.1   |
 | soundata  | 0.1.0   |
 | spaudiopy | 0.1.4   |
+| pytest    | 6.2.5   |
 
 ## Example uses
 
@@ -66,7 +67,6 @@ The same code works with the 2019, 2020, and 2021 versions of the dataset. Just 
 }
 ```
 Our DCASE 2021 paper can be found [here](http://dcase.community/documents/workshop2021/proceedings/DCASE2021Workshop_Roman_59.pdf)
-
 
 ## License
 Shield: [![CC BY 4.0][cc-by-shield]][cc-by]

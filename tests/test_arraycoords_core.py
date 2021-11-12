@@ -1,5 +1,6 @@
 from micarraylib.arraycoords.core import micarray
 from micarraylib.arraycoords import array_shapes_raw
+from micarraylib.arraycoords.array_shapes_utils import _polar2cart
 import pytest
 import numpy as np
 
@@ -48,10 +49,16 @@ def test_micarray_standard_coords():
     arr.standard_coords('polar')
     assert arr.coords_form == 'polar'
     assert arr.angle_units == 'radians'
+    print([c[-1] for c in arr.coords_dict.values()])
 
     # sanity check on range of angles in polar coordinates
     assert all([c[0]>0 and c[0]<180 for c in arr.coords_dict.values()])
     assert all([c[1]<=180 and c[1]>=-180 for c in arr.coords_dict.values()])
+
+    # returning to cartesian should result in coordinates centered around zero
+    coords_cart = _polar2cart(arr.coords_dict,'radians')
+    # TODO: investigate why this error tolerance is needed, correct, and remove
+    assert np.allclose(np.mean(np.array([v for v in coords_cart.values()]),axis=0),[0,0,0],atol=1e-2)
 
     # value when form not specified
     with pytest.raises(ValueError):

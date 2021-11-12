@@ -73,6 +73,23 @@ def test_cart2polar():
 
 
 
+def test_polar2cart_cart2polar():
+    piover180 = math.pi/180
+    # TODO add more items to dictionary in addition to 'a'
+    coords_dict_deg = {'a':[150,45,9]}
+    coords_dict_rad = _deg2rad(coords_dict_deg)
+    coords_dict_cart_d = _polar2cart(coords_dict_deg,'degrees')
+    coords_dict_cart_r = _polar2cart(coords_dict_rad,'radians')
+    coords_dict_rad_c = _cart2polar(coords_dict_cart_r)
+    coords_dict_cart_r2 = _polar2cart(coords_dict_rad_c,'radians')
+
+    assert all([np.allclose(coords_dict_cart_d[k],coords_dict_cart_r[k]) for k in coords_dict_cart_d.keys()])
+    assert all([np.allclose(coords_dict_cart_r2[k],coords_dict_cart_r[k]) for k in coords_dict_cart_d.keys()])
+    assert all([np.allclose(coords_dict_rad[k],coords_dict_rad_c[k]) for k in coords_dict_cart_d.keys()])
+    
+
+
+
 def test_centercoords():
     # TODO add more items to dictionary in addition to 'a'
     coords_dict_deg = {'a':[150,45,9]}
