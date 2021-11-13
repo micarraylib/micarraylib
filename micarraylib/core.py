@@ -1,5 +1,7 @@
 import soundata
 import numpy as np
+import matplotlib.pyplot as plt
+from micarraylib.arraycoords.array_shapes_utils import _polar2cart
 
 
 
@@ -110,6 +112,39 @@ class Dataset:
         capsule_coords = np.array([c for c in self.capsule_coords[micarray].values()])
         capsule_names = [c for c in self.capsule_coords[micarray].keys()]
         return capsule_coords, capsule_names
+
+    def plot_micarray(self, micarray, show=True):
+        """
+        returns the capsule coordinates in 
+        polar form
+
+        Args: 
+            micarray (str): the name of the
+                microphone array that we are
+                getting coordinates for
+
+        """
+
+        if micarray not in self.array_names:
+            raise ValueError(
+                "micarray is {}, but it should be one of {}".format(
+                    micarray, ", ".join(self.array_names))
+                )
+        capsule_coords, capsule_names = self.get_capsule_coordinates(micarray)
+        capsule_coords_dict = _polar2cart({c:capsule_coords[i] for i,c in enumerate(capsule_names)},'radians')
+        fig = plt.figure()
+        ax = plt.axes(projection='3d')
+        for n,m in capsule_coords_dict.items():
+            ax.scatter(m[0],m[1],m[2],color='b',label=micarray) 
+            ax.text(m[0],m[1],m[2],  '%s' % (str(n)), size=20, zorder=1,  
+                color='k')
+
+        ax.set_xlabel('x (meters)')
+        ax.set_ylabel('y (meters)')
+        ax.set_zlabel('z (meters)')
+        if show:
+            plt.show()
+
 
 
 def _initialize(name, data_home=None, download=True):

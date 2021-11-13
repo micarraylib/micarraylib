@@ -2,6 +2,7 @@ import soundata
 from micarraylib.core import Dataset, _initialize, Aggregate
 import micarraylib.datasets 
 import micarraylib.arraycoords
+import matplotlib.pyplot as plt
 import pytest
 import mock
 import os
@@ -69,6 +70,12 @@ def test_Dataset_get_capsule_coords():
 
     with pytest.raises(ValueError):
         a.get_capsule_coordinates('foo')
+
+
+def test_Dataset_plot_micarray():
+
+    a = micarraylib.datasets.marco(download=False,data_home='~/')
+    a.plot_micarray('OCT3D',show=False)
 
 
 def test_initialize():
