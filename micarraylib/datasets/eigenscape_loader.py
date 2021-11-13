@@ -87,7 +87,7 @@ class eigenscape_raw(Dataset):
         clip_ids_sorted = {k: {c: [c] for c in clip_ids} for k in EIGENSCAPE_ARRAYS}
         return clip_ids_sorted, clip_ids
 
-    def get_audio_numpy(self, clip_id, micarray='Eigenmike', fmt="A", N=None, fs=None):
+    def get_audio_numpy(self, clip_id, micarray="Eigenmike", fmt="A", N=None, fs=None):
         """
         combine single-capsule mono clips to
         form an numpy array with all the audio recorded by
@@ -220,7 +220,7 @@ class eigenscape(Dataset):
         clip_ids_sorted = {k: {c: [c] for c in clip_ids} for k in EIGENSCAPE_ARRAYS}
         return clip_ids_sorted, clip_ids
 
-    def get_audio_numpy(self, clip_id, micarray='Eigenmike', fmt="B", N=None, fs=None):
+    def get_audio_numpy(self, clip_id, micarray="Eigenmike", fmt="B", N=None, fs=None):
         """
         combine single-capsule mono clips to
         form an numpy array with all the audio recorded by

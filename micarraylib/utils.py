@@ -69,7 +69,7 @@ def _get_audio_numpy(
                 (N + 1) ** 2, len(clip_names)
             )
         )
-    if fmt_in == 'A' and fmt_out == 'B' and capsule_coords == None:
+    if fmt_in == "A" and fmt_out == "B" and capsule_coords == None:
         raise ValueError(
             "To convert between A and B format you must specify capsule coordinates"
         )
@@ -84,6 +84,6 @@ def _get_audio_numpy(
             warnings.warn(UserWarning("N parameter was specified but not used"))
         return audio_array
     if fmt_in == "A" and fmt_out == "B":
-        N = int(np.sqrt(len(clip_names))-1) if N == None else N
+        N = int(np.sqrt(len(clip_names)) - 1) if N == None else N
         audio_array = a2b(N, audio_array, capsule_coords)
         return audio_array

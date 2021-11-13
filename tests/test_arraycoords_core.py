@@ -56,11 +56,9 @@ def test_micarray_standard_coords():
 
     # returning to cartesian should result in coordinates centered around zero
     coords_cart = _polar2cart(arr.coords_dict, "radians")
-    # TODO: investigate why this error tolerance is needed, correct, and remove
     assert np.allclose(
         np.mean(np.array([v for v in coords_cart.values()]), axis=0),
         [0, 0, 0],
-        atol=1e-2,
     )
 
     # value when form not specified

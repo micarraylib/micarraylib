@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 from micarraylib.arraycoords.array_shapes_utils import _polar2cart
 
 
-
 class Aggregate:
     """
     The generic dataset aggregator class
@@ -12,18 +11,15 @@ class Aggregate:
     Args:
         micarray_dataset_list (list): a list with the
             micarray.Dataset objects to aggregate
-        fs (float): the sampling rate to use across 
+        fs (float): the sampling rate to use across
             datasets in the aggregate
     """
 
-    def __init__(
-        self, micarray_dataset_list, fs
-    ):
+    def __init__(self, micarray_dataset_list, fs):
         self.fs = fs
-        self.datasets = {dataset.name:dataset for dataset in micarray_dataset_list}
+        self.datasets = {dataset.name: dataset for dataset in micarray_dataset_list}
         for dataset in self.datasets.values():
             dataset.fs = fs
-
 
 
 class Dataset:
@@ -90,10 +86,10 @@ class Dataset:
 
     def get_capsule_coordinates(self, micarray):
         """
-        returns the capsule coordinates in 
+        returns the capsule coordinates in
         polar form
 
-        Args: 
+        Args:
             micarray (str): the name of the
                 microphone array that we are
                 getting coordinates for
@@ -107,18 +103,19 @@ class Dataset:
         if micarray not in self.array_names:
             raise ValueError(
                 "micarray is {}, but it should be one of {}".format(
-                    micarray, ", ".join(self.array_names))
+                    micarray, ", ".join(self.array_names)
                 )
+            )
         capsule_coords = np.array([c for c in self.capsule_coords[micarray].values()])
         capsule_names = [c for c in self.capsule_coords[micarray].keys()]
         return capsule_coords, capsule_names
 
     def plot_micarray(self, micarray, show=True):
         """
-        returns the capsule coordinates in 
+        returns the capsule coordinates in
         polar form
 
-        Args: 
+        Args:
             micarray (str): the name of the
                 microphone array that we are
                 getting coordinates for
@@ -128,23 +125,24 @@ class Dataset:
         if micarray not in self.array_names:
             raise ValueError(
                 "micarray is {}, but it should be one of {}".format(
-                    micarray, ", ".join(self.array_names))
+                    micarray, ", ".join(self.array_names)
                 )
+            )
         capsule_coords, capsule_names = self.get_capsule_coordinates(micarray)
-        capsule_coords_dict = _polar2cart({c:capsule_coords[i] for i,c in enumerate(capsule_names)},'radians')
+        capsule_coords_dict = _polar2cart(
+            {c: capsule_coords[i] for i, c in enumerate(capsule_names)}, "radians"
+        )
         fig = plt.figure()
-        ax = plt.axes(projection='3d')
-        for n,m in capsule_coords_dict.items():
-            ax.scatter(m[0],m[1],m[2],color='b',label=micarray) 
-            ax.text(m[0],m[1],m[2],  '%s' % (str(n)), size=20, zorder=1,  
-                color='k')
+        ax = plt.axes(projection="3d")
+        for n, m in capsule_coords_dict.items():
+            ax.scatter(m[0], m[1], m[2], color="b", label=micarray)
+            ax.text(m[0], m[1], m[2], "%s" % (str(n)), size=20, zorder=1, color="k")
 
-        ax.set_xlabel('x (meters)')
-        ax.set_ylabel('y (meters)')
-        ax.set_zlabel('z (meters)')
+        ax.set_xlabel("x (meters)")
+        ax.set_ylabel("y (meters)")
+        ax.set_zlabel("z (meters)")
         if show:
             plt.show()
-
 
 
 def _initialize(name, data_home=None, download=True):
