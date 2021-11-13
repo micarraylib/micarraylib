@@ -61,7 +61,7 @@ def _cart2polar(coords_dict):
     return {
         m: [
             math.acos(c[2] / math.sqrt(c[0] ** 2 + c[1] ** 2 + c[2] ** 2)),
-            math.atan(c[1] / c[0]) if c[0] >= 0 else math.atan(c[1] / c[1]) + math.pi,
+            math.atan(c[1] / c[0]) if c[0] >= 0 else math.atan(c[1] / c[0]) + math.pi,
             math.sqrt(c[0] ** 2 + c[1] ** 2 + c[2] ** 2),
         ]
         for m, c in coords_dict.items()
