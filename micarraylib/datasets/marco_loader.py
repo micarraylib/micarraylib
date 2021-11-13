@@ -17,7 +17,6 @@ marco_array_format = {m: "A" for m in MARCO_ARRAYS}
 marco_capsule_coords = {
     m: arraycoords.get_array(m).standard_coords("polar") for m in MARCO_ARRAYS
 }
-print(arraycoords.get_array('OCT3D').coords_dict)
 
 
 class marco(Dataset):
