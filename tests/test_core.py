@@ -55,10 +55,12 @@ def test_Dataset():
         Dataset("name", 1, {"a": "A"}, {"a": {"b": [0, 0, 0]}}, download=False)
 
 
+
 def test_initialize():
 
     a = _initialize("eigenscape", data_home=None, download=False)
     assert isinstance(a, soundata.datasets.eigenscape.Dataset)
+
 
 
 @mock.patch("soundata.datasets.eigenscape.Dataset.download")
