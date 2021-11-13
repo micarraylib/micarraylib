@@ -78,7 +78,7 @@ class marco(Dataset):
     ):
         super().__init__(name, fs, array_format, capsule_coords, download, data_home)
 
-        self.micarray_capsule_clips, self.clips_list = self._sort_clip_ids()
+        self.micarray_capsule_clip_ids, self.clips_list = self._sort_clip_ids()
 
     def _sort_clip_ids(self):
         """
@@ -113,7 +113,7 @@ class marco(Dataset):
 
         return clip_ids_sorted, clips_list
 
-    def get_audio_numpy(self, micarray, source, fmt="A", N=None, fs=None):
+    def get_audio_numpy(self, source, micarray, fmt="A", N=None, fs=None):
         """
         combine single-capsule mono clips to
         form an numpy array with all the audio recorded by
@@ -145,14 +145,14 @@ class marco(Dataset):
                     micarray, ", ".join(self.array_names)
                 )
             )
-        if not any([source in s for s in self.clips_list]):
+        if not any([source == s for s in self.clips_list]):
             raise ValueError(
                 "source is {}, but it should be one of {}".format(
                     source, ", ".join(self.clips_list)
                 )
             )
         return _get_audio_numpy(
-            self.micarray_source_clips[micarray][source],
+            self.micarray_capsule_clip_ids[micarray][source],
             self.dataset,
             self.array_format[micarray],
             fmt,

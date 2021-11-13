@@ -47,7 +47,7 @@ def test_get_audio_numpy_valueerrors():
 
     with pytest.warns(UserWarning):
         a = marco(download=False,data_home='tests/resources/datasets/marco') 
-        A = _get_audio_numpy(a.micarray_capsule_clips['OCT3D']['impulse_response+90d'],a.dataset,'B','B',N=1,fs=48000)
+        A = _get_audio_numpy(a.micarray_capsule_clip_ids['OCT3D']['impulse_response+90d'],a.dataset,'B','B',N=1,fs=48000)
 
 
 
@@ -55,7 +55,7 @@ def test_get_audio_numpy_valueerrors():
 def test_get_audio_numpy_resample():
     data_dir = 'tests/resources/datasets/marco'
     a = marco(download=False,data_home=data_dir) 
-    A = _get_audio_numpy(a.micarray_capsule_clips['OCT3D']['impulse_response+90d'],a.dataset,'A','A',fs=24000)
+    A = _get_audio_numpy(a.micarray_capsule_clip_ids['OCT3D']['impulse_response+90d'],a.dataset,'A','A',fs=24000)
     wavs_dir = os.path.join(data_dir,'3D-MARCo Impulse Responses/01_Speaker_+90deg_3m')
     wavs = os.listdir(wavs_dir)
     wavs.sort()
@@ -68,7 +68,7 @@ def test_get_audio_numpy_resample():
 def test_get_audio_numpy_a2b():
     data_dir = 'tests/resources/datasets/marco'
     a = marco(download=False,data_home=data_dir) 
-    A = _get_audio_numpy(a.micarray_capsule_clips['OCT3D']['impulse_response+90d'],a.dataset,'A','B',a.capsule_coords['OCT3D'],fs=48000)
+    A = _get_audio_numpy(a.micarray_capsule_clip_ids['OCT3D']['impulse_response+90d'],a.dataset,'A','B',a.capsule_coords['OCT3D'],fs=48000)
     wavs_dir = os.path.join(data_dir,'3D-MARCo Impulse Responses/01_Speaker_+90deg_3m')
     wavs = os.listdir(wavs_dir)
     wavs.sort()
