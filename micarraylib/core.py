@@ -1,6 +1,28 @@
 import soundata
 
 
+
+class Aggregate:
+    """
+    The generic dataset aggregator class
+
+    Args:
+        micarray_dataset_list (list): a list with the
+            micarray.Dataset objects to aggregate
+        fs (float): the sampling rate to use across 
+            datasets in the aggregate
+    """
+
+    def __init__(
+        self, micarray_dataset_list, fs
+    ):
+        self.fs = fs
+        self.datasets = {dataset.name:dataset for dataset in micarray_dataset_list}
+        for dataset in self.datasets.values():
+            dataset.fs = fs
+
+
+
 class Dataset:
     """
     The generic Dataset class
