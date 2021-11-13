@@ -1,4 +1,5 @@
 import soundata
+import numpy as np
 
 
 
@@ -84,6 +85,31 @@ class Dataset:
         }
         self.capsule_coords = capsule_coords
         self.data_home = data_home
+
+    def get_capsule_coordinates(self, micarray):
+        """
+        returns the capsule coordinates in 
+        polar form
+
+        Args: 
+            micarray (str): the name of the
+                microphone array that we are
+                getting coordinates for
+
+        Returns:
+            tuple with
+                1) numpy array of shape (n,3)
+                2) capsule coordinate names (list)
+        """
+
+        if micarray not in self.array_names:
+            raise ValueError(
+                "micarray is {}, but it should be one of {}".format(
+                    micarray, ", ".join(self.array_names))
+                )
+        capsule_coords = np.array([c for c in self.capsule_coords[micarray].values()])
+        capsule_names = [c for c in self.capsule_coords[micarray].keys()]
+        return capsule_coords, capsule_names
 
 
 def _initialize(name, data_home=None, download=True):

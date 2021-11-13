@@ -4,8 +4,6 @@ from micarraylib.datasets import tau2019sse_loader
 from micarraylib.datasets import eigenscape_loader
 from micarraylib.datasets import marco_loader
 
-import re
-
 
 def tau2021sse_nigens(download=True, data_home=None):
     """

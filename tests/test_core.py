@@ -1,6 +1,7 @@
 import soundata
 from micarraylib.core import Dataset, _initialize, Aggregate
 import micarraylib.datasets 
+import micarraylib.arraycoords
 import pytest
 import mock
 import os
@@ -54,6 +55,20 @@ def test_Dataset():
     with pytest.raises(ValueError):
         Dataset("name", 1, {"a": "A"}, {"a": {"b": [0, 0, 0]}}, download=False)
 
+
+def test_Dataset_get_capsule_coords():
+
+    a = micarraylib.datasets.marco(download=False,data_home='~/')
+    A,B = a.get_capsule_coordinates('OCT3D')
+    C = micarraylib.arraycoords.get_array('OCT3D').standard_coords('polar')
+    D = [c for c in C.keys()]
+    C = np.array([c for c in C.values()])
+
+    assert np.allclose(A,C)
+    assert B==D
+
+    with pytest.raises(ValueError):
+        a.get_capsule_coordinates('foo')
 
 
 def test_initialize():
