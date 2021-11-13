@@ -91,7 +91,7 @@ class tau2021sse_nigens(Dataset):
         clip_ids_sorted = {k: {c: [c] for c in clip_ids} for k in TAUSSE_ARRAYS}
         return clip_ids_sorted, clip_ids
 
-    def get_audio_numpy(self, clip_id, micarray="EigenMike", fmt="A", fs=None):
+    def get_audio_numpy(self, clip_id, micarray="Eigenmike", fmt="A", fs=None):
         """
         combine single-capsule mono clips to
         form an numpy array with all the audio recorded by
@@ -121,7 +121,7 @@ class tau2021sse_nigens(Dataset):
                     micarray, ", ".join(self.array_names)
                 )
             )
-        if not any([clip_id in s for s in self.clips_list]):
+        if not any([clip_id == s for s in self.clips_list]):
             raise ValueError(
                 "clip_id is {}, but it should be one of {}".format(
                     clip_id, ", ".join(self.clips_list)
@@ -129,7 +129,7 @@ class tau2021sse_nigens(Dataset):
             )
         if fmt == "A":
             return _get_audio_numpy(
-                ["".join(["mic_", self.micarray_source_clips[micarray][source][0]])],
+                ["".join(["mic_", self.micarray_clip_ids[micarray][clip_id][0]])],
                 self.dataset,
                 self.array_format[micarray],
                 fmt,
@@ -138,7 +138,7 @@ class tau2021sse_nigens(Dataset):
             )
         if fmt == "B":
             return _get_audio_numpy(
-                ["".join(["foa_", self.micarray_source_clips[micarray][source][0]])],
+                ["".join(["foa_", self.micarray_clip_ids[micarray][clip_id][0]])],
                 self.dataset,
                 "B",
                 fmt,
@@ -146,22 +146,22 @@ class tau2021sse_nigens(Dataset):
                 fs=fs,
             )
 
-    def get_audio_events(self, source):
+    def get_audio_events(self, clip_id):
         """
         get the spatial events associated with a clip_id
 
         Args:
-            source (str): the sound source that was
+            clip_id (str): the sound source that was
                 recorded in the audio
 
         Returns:
             a soundata.SpatialEvents object
         """
-        if not any([source in s for s in self.clips_list]):
+        if not any([clip_id == s for s in self.clips_list]):
             raise ValueError(
-                "source is {}, but it should be one of {}".format(
-                    source, ", ".join(self.clips_list)
+                "clip_id is {}, but it should be one of {}".format(
+                    clip_id, ", ".join(self.clips_list)
                 )
             )
         all_dataset_clip_names = self.dataset.load_clips()
-        return all_dataset_clip_names["".join(["foa_", source])].spatial_events
+        return all_dataset_clip_names["".join(["foa_", clip_id])].spatial_events

@@ -51,7 +51,7 @@ class eigenscape_raw(Dataset):
         data_home (str): path to directory where the
             data is (directories must follow
             the soundata index struct)
-        micarray_source_clips (dict): a dictionary with soundata
+        micarray_clip_ids (dict): a dictionary with soundata
             clips_ids sorted by the microphone array
             and sound source that they belong to.
         clips_list (list): a list with the different
@@ -70,7 +70,7 @@ class eigenscape_raw(Dataset):
     ):
         super().__init__(name, fs, array_format, capsule_coords, download, data_home)
 
-        self.micarray_source_clips, self.clips_list = self._sort_clip_ids()
+        self.micarray_clip_ids, self.clips_list = self._sort_clip_ids()
 
     def _sort_clip_ids(self):
         """
@@ -87,7 +87,7 @@ class eigenscape_raw(Dataset):
         clip_ids_sorted = {k: {c: [c] for c in clip_ids} for k in EIGENSCAPE_ARRAYS}
         return clip_ids_sorted, clip_ids
 
-    def get_audio_numpy(self, micarray, source, fmt="A", N=None, fs=None):
+    def get_audio_numpy(self, clip_id, micarray='Eigenmike', fmt="A", N=None, fs=None):
         """
         combine single-capsule mono clips to
         form an numpy array with all the audio recorded by
@@ -123,14 +123,14 @@ class eigenscape_raw(Dataset):
                     micarray, ", ".join(self.array_names)
                 )
             )
-        if not any([source in s for s in self.clips_list]):
+        if not any([clip_id == s for s in self.clips_list]):
             raise ValueError(
-                "source is {}, but it should be one of {}".format(
-                    source, ", ".join(self.clips_list)
+                "clip_id is {}, but it should be one of {}".format(
+                    clip_id, ", ".join(self.clips_list)
                 )
             )
         return _get_audio_numpy(
-            self.micarray_source_clips[micarray][source],
+            self.micarray_clip_ids[micarray][clip_id],
             self.dataset,
             self.array_format[micarray],
             fmt,
@@ -184,7 +184,7 @@ class eigenscape(Dataset):
         data_home (str): path to directory where the
             data is (directories must follow
             the soundata index struct)
-        micarray_source_clips (dict): a dictionary with soundata
+        micarray_clip_ids (dict): a dictionary with soundata
             clips_ids sorted by the microphone array
             and sound source that they belong to.
         clips_list (list): a list with the different
@@ -203,7 +203,7 @@ class eigenscape(Dataset):
     ):
         super().__init__(name, fs, array_format, capsule_coords, download, data_home)
 
-        self.micarray_source_clips, self.clips_list = self._sort_clip_ids()
+        self.micarray_clip_ids, self.clips_list = self._sort_clip_ids()
 
     def _sort_clip_ids(self):
         """
@@ -220,7 +220,7 @@ class eigenscape(Dataset):
         clip_ids_sorted = {k: {c: [c] for c in clip_ids} for k in EIGENSCAPE_ARRAYS}
         return clip_ids_sorted, clip_ids
 
-    def get_audio_numpy(self, micarray, source, fmt="B", N=None, fs=None):
+    def get_audio_numpy(self, clip_id, micarray='Eigenmike', fmt="B", N=None, fs=None):
         """
         combine single-capsule mono clips to
         form an numpy array with all the audio recorded by
@@ -230,7 +230,7 @@ class eigenscape(Dataset):
         Args:
             micarray (str): the name of the micarray to
                 get audio for
-            source (str): the sound source that was
+            clip_id (str): the sound source that was
                 recorded in the audio
             fmt (str): the desired format that we
                 want the audio in (A or B in the
@@ -256,14 +256,14 @@ class eigenscape(Dataset):
                     micarray, ", ".join(self.array_names)
                 )
             )
-        if not any([source in s for s in self.clips_list]):
+        if not any([clip_id == s for s in self.clips_list]):
             raise ValueError(
-                "source is {}, but it should be one of {}".format(
-                    source, ", ".join(self.clips_list)
+                "clip_id is {}, but it should be one of {}".format(
+                    clip_id, ", ".join(self.clips_list)
                 )
             )
         return _get_audio_numpy(
-            self.micarray_source_clips[micarray][source],
+            self.micarray_clip_ids[micarray][clip_id],
             self.dataset,
             self.array_format[micarray],
             fmt,
