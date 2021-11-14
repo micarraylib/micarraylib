@@ -229,6 +229,7 @@ micarraylib/utils.py                                  33      0   100%
 ----------------------------------------------------------------------
 TOTAL                                                354      2    99%
 ```
+We have worked hard to make unit testing as thorough as possible, but we can always improve. Please help us writting tests to improve the robustness of `micarraylib`. All useful contributions are always welcome.
 
 ## License
 Shield: [![CC BY 4.0][cc-by-shield]][cc-by]
