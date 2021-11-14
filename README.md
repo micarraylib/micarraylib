@@ -41,27 +41,22 @@ Also install all dependencies
 ```
 
 	* You can download and initialize the 3D-MARCO dataset. The data will be downloaded and unzipped to a directory called datasets in your home path (download may take a while)
-```>>> marco = datasets.marco(data_home='~/datasets')
-```
+```>>> marco = datasets.marco(data_home='~/datasets')```
 
 	* Alternatively, just load the dataset if you already have it
-```>>> marco = datasets.marco(download=False,data_home='~/datasets/marco')
-```
+```>>> marco = datasets.marco(download=False,data_home='~/datasets/marco')```
 
 	* Now you can list the microphone arrays available using
 ```>>> marco.array_names
-['OCT3D', 'Eigenmike', 'PCMA3D', 'DeccaCuboid', '2LCube', 'Ambeo', 'Hamasaki']
-```
+['OCT3D', 'Eigenmike', 'PCMA3D', 'DeccaCuboid', '2LCube', 'Ambeo', 'Hamasaki']```
 
 	* Each microphone array has a list of capsule names. For example, let's print the 'Ambeo' ones
 ```>>> marco.array_capsules['Ambeo']
-['Ch1:FLU', 'Ch2:FRD', 'Ch3:BLD', 'Ch4:BRU'] 
-```
+['Ch1:FLU', 'Ch2:FRD', 'Ch3:BLD', 'Ch4:BRU']```
 
 	* And each capsule has polar coordinates (colatitude, azimuth, and radius) associated with it
 ```>>> marco.capsule_coords['Ambeo']
-{'Ch1:FLU': [0.9599310885968811, 0.7853981633974483, 0.01], 'Ch2:FRD': [2.181661564992912, -0.7853981633974483, 0.01], 'Ch3:BLD': [2.181661564992912, 2.356194490192345, 0.01], 'Ch4:BRU': [0.9599310885968811, 3.9269908169872414, 0.01]}
-```
+{'Ch1:FLU': [0.9599310885968811, 0.7853981633974483, 0.01], 'Ch2:FRD': [2.181661564992912, -0.7853981633974483, 0.01], 'Ch3:BLD': [2.181661564992912, 2.356194490192345, 0.01], 'Ch4:BRU': [0.9599310885968811, 3.9269908169872414, 0.01]}```
 
 1. Obtaining DCASE task 3 clips and sound event annotations in A and B formats (no ambisonics encoding used since the dataset natively exists in A and B formats).
 
