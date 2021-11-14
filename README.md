@@ -104,6 +104,26 @@ The [3D-MARCo](https://pure.hud.ac.uk/en/datasets/3d-microphone-array-comparison
 	>>> marco.get_audio_numpy('organ','OCT3D',fmt='B',N=2)
 	```
 
+* You can also easily get a numpy array with the capsule coordinates in polar form and a list with the capsule names that correspond to each row in the numpy array.
+
+	```
+	>>> coords_numpy, capsule_names_list = marco.get_capsule_coords_numpy('OCT3D',fmt='B',N=2)
+
+	>>> print(coords_numpy)
+	[[ 2.33401311  0.85309119  0.64295806]
+	 [ 2.33401311 -0.85309119  0.64295806]
+	 [ 2.46685171  0.          0.5691666 ]
+	 [ 2.28874417  1.75748566  0.67561129]
+	 [ 2.28874417  4.52569965  0.67561129]
+	 [ 0.81203798  1.02224692  0.80746899]
+	 [ 0.81203798 -1.02224692  0.80746899]
+	 [ 0.99496437  2.5175696   1.02024265]
+	 [ 0.99496437  3.76561571  1.02024265]]
+
+	>>> print(capsule_names_list)
+	['FL', 'FR', 'FC', 'RL', 'RR', 'FLh', 'FRh', 'RLh', 'RRh'] 
+	```
+
 * NOTE: under the hood, `micarraylib` obtains the 3D-MARCo data using [Soundata's 3D-MARCo loader](https://soundata.readthedocs.io/en/latest/source/soundata.html#module-soundata.datasets.marco). The same is true for all other datasets supported by `micarraylib`.
 
 ## Example use 2: Working with the 2021 DCASE Challenge Task 3 dataset
