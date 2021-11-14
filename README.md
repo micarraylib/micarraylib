@@ -102,7 +102,56 @@ The [3D-MARCo](https://pure.hud.ac.uk/en/datasets/3d-microphone-array-comparison
 	>>> marco.get_audio_numpy('organ','OCT3D',fmt='B',N=2)
 	```
 
-## Example use 2: Working with the 2021 DCASE Task 3 dataset
+* NOTE: under the hood, `micarraylib` obtains the 3D-MARCo data using [Soundata's 3D-MARCo loader](https://soundata.readthedocs.io/en/latest/source/soundata.html#module-soundata.datasets.marco). The same is true for all other datasets supported by `micarraylib`.
+
+## Example use 2: Working with the 2021 DCASE Challenge Task 3 dataset
+
+Please refer to the [official 2021 DCASE Challenge Task 3 website](http://dcase.community/challenge2021/task-sound-event-localization-and-detection) to learn more about the dataset.
+
+* Start by loading the datasets module.
+
+	```
+	>>> from micarraylib import datasets
+	```
+
+* You can download and initialize the 2021 DCASE Challenge task 3. The data will be downloaded and unzipped to a directory called datasets in your home path (download may take a while).
+
+	```
+	>>> tau = datasets.tau2021sse_nigens(data_home='~/datasets')
+	```
+
+* Alternatively, just load the dataset if you already have it.
+
+	```
+	>>> tau = datasets.tau2021sse_nigens(download=False,data_home='~/datasets/tau2021sse_nigens')
+	```
+
+* Now you can list the only microphone array available using.
+
+	```
+	>>> tau.array_names
+	['Eigenmike']
+	```
+
+* The dataset is made of clips. The list of all clips is very big (800 total). Printing it is possible but impractical. Instead, if you want to understand the clip ids, we recomend studying the [dataset's full index](https://github.com/soundata/soundata/blob/main/soundata/datasets/indexes/tau2021sse_nigens_index.json). Some example clip ids that `micarraylib` recognizes in this dataset are `dev/dev-train/fold1_room1_mix001` or `eval/eval-test/mix124`.
+
+* You can load the audio of any of these clip ids (as a numpy array), recorded by the microphone array in the dataset in A-format (raw capsules).
+
+	```
+	>>> tau.get_audio_numpy('dev/dev-train/fold1_room1_mix001',fmt='A')
+	```
+
+* Or B-format. In this case, since the dataset is readily available in both A and B formats, `micarraylib`'s simple encoder is not used.
+
+	```
+	>>> tau.get_audio_numpy('dev/dev-train/fold1_room1_mix001',fmt='B')
+	```
+
+* You can also get Soundata's [`SpatialEvents`](https://soundata.readthedocs.io/en/latest/source/soundata.html#soundata.datasets.tau2021sse_nigens.Clip.spatial_events) object associated with the clip id. This contains all the annotations of spatial events present in the dataset. 
+
+	```
+	>>> tau.get_audio_events('dev/dev-train/fold1_room1_mix001')
+	```
 
 ## Supported datasets
 
