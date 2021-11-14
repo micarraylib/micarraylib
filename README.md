@@ -80,7 +80,7 @@ Also install all dependencies
 		>>> marco.plot_micarray('Ambeo')
 		```
 					
-		<img src="docs/img/plot_example.jpg" height="200px">
+		<img src="docs/img/plot_example.jpg" height="400px">
 
 1. Obtaining DCASE task 3 clips and sound event annotations in A and B formats (no ambisonics encoding used since the dataset natively exists in A and B formats).
 
