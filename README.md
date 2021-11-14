@@ -207,6 +207,29 @@ Please refer to the [official 2021 DCASE Challenge Task 3 website](http://dcase.
 ```
 Our DCASE 2021 paper can be found [here](http://dcase.community/documents/workshop2021/proceedings/DCASE2021Workshop_Roman_59.pdf)
 
+## Test coverage
+
+```
+----------- coverage: platform linux, python 3.9.7-final-0 -----------
+Name                                               Stmts   Miss  Cover
+----------------------------------------------------------------------
+micarraylib/__init__.py                                0      0   100%
+micarraylib/arraycoords/__init__.py                   22      0   100%
+micarraylib/arraycoords/array_shapes_raw.py            8      0   100%
+micarraylib/arraycoords/array_shapes_utils.py         16      0   100%
+micarraylib/arraycoords/core.py                       37      0   100%
+micarraylib/core.py                                   48      2    96%
+micarraylib/datasets/__init__.py                      17      0   100%
+micarraylib/datasets/eigenscape_loader.py             44      0   100%
+micarraylib/datasets/marco_loader.py                  30      0   100%
+micarraylib/datasets/tau2019sse_loader.py             33      0   100%
+micarraylib/datasets/tau2020sse_nigens_loader.py      33      0   100%
+micarraylib/datasets/tau2021sse_nigens_loader.py      33      0   100%
+micarraylib/utils.py                                  33      0   100%
+----------------------------------------------------------------------
+TOTAL                                                354      2    99%
+```
+
 ## License
 Shield: [![CC BY 4.0][cc-by-shield]][cc-by]
 
