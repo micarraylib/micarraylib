@@ -39,24 +39,29 @@ Also install all dependencies
 ```
 >>> from micarraylib import datasets
 ```
+
 	* You can download and initialize the 3D-MARCO dataset. The data will be downloaded and unzipped to a directory called datasets in your home path (download may take a while)
 ```
 >>> marco = datasets.marco(data_home='~/datasets')
 ```
+
 	* Alternatively, just load the dataset if you already have it
 ```
 >>> marco = datasets.marco(download=False,data_home='~/datasets/marco')
 ```
+
 	* Now you can list the microphone arrays available using
 ```
 >>> marco.array_names
 ['OCT3D', 'Eigenmike', 'PCMA3D', 'DeccaCuboid', '2LCube', 'Ambeo', 'Hamasaki']
 ```
+
 	* Each microphone array has a list of capsule names. For example, let's print the 'Ambeo' ones
 ```
 >>> marco.array_capsules['Ambeo']
 ['Ch1:FLU', 'Ch2:FRD', 'Ch3:BLD', 'Ch4:BRU'] 
 ```
+
 	* And each capsule has polar coordinates (colatitude, azimuth, and radius) associated with it
 ```
 >>> marco.capsule_coords['Ambeo']
