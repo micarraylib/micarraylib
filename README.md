@@ -32,86 +32,77 @@ Also install all dependencies
 | spaudiopy | 0.1.4   |
 | pytest    | 6.2.5   |
 
-## Example uses
+## Example use 1: Working with the 3D-MARCo dataset
 
-1. **Working with the 3D-MARCo dataset**. The [3D-MARCo](https://pure.hud.ac.uk/en/datasets/3d-microphone-array-comparison-3d-marco) dataset consists of sound sources (live performances, as well as impulses and pre-recorded sources played with loudspeakers) imultaneously recorded by multiple microphone arrays.
-	* Start by loading the datasets module.
+The [3D-MARCo](https://pure.hud.ac.uk/en/datasets/3d-microphone-array-comparison-3d-marco) dataset consists of sound sources (live performances, as well as impulses and pre-recorded sources played with loudspeakers) imultaneously recorded by multiple microphone arrays.
 
-		```
-		>>> from micarraylib import datasets
-		```
+* Start by loading the datasets module.
 
-	* You can download and initialize the 3D-MARCO dataset. The data will be downloaded and unzipped to a directory called datasets in your home path (download may take a while).
+	```
+	>>> from micarraylib import datasets
+	```
 
-		```
-		>>> marco = datasets.marco(data_home='~/datasets')
-		```
+* You can download and initialize the 3D-MARCO dataset. The data will be downloaded and unzipped to a directory called datasets in your home path (download may take a while).
 
-	* Alternatively, just load the dataset if you already have it.
+	```
+	>>> marco = datasets.marco(data_home='~/datasets')
+	```
 
-		```
-		>>> marco = datasets.marco(download=False,data_home='~/datasets/marco')
-		```
+* Alternatively, just load the dataset if you already have it.
 
-	* Now you can list the microphone arrays available using.
+	```
+	>>> marco = datasets.marco(download=False,data_home='~/datasets/marco')
+	```
 
-		```
-		>>> marco.array_names
-		['OCT3D', 'Eigenmike', 'PCMA3D', 'DeccaCuboid', '2LCube', 'Ambeo', 'Hamasaki']
-		```
+* Now you can list the microphone arrays available using.
 
-	* Each microphone array has a list of capsule names. For example, let's print the 'Ambeo' ones.
+	```
+	>>> marco.array_names
+	['OCT3D', 'Eigenmike', 'PCMA3D', 'DeccaCuboid', '2LCube', 'Ambeo', 'Hamasaki']
+	```
 
-		```
-		>>> marco.array_capsules['Ambeo']
-		['Ch1:FLU', 'Ch2:FRD', 'Ch3:BLD', 'Ch4:BRU']
-		```
+* Each microphone array has a list of capsule names. For example, let's print the 'Ambeo' ones.
 
-	* And each capsule has polar coordinates (colatitude radians, azimuth radians, and radius meters) associated with it.
+	```
+	>>> marco.array_capsules['Ambeo']
+	['Ch1:FLU', 'Ch2:FRD', 'Ch3:BLD', 'Ch4:BRU']
+	```
 
-		```
-		>>> marco.capsule_coords['Ambeo']
-		{'Ch1:FLU': [0.9599310885968811, 0.7853981633974483, 0.01], 'Ch2:FRD': [2.181661564992912, -0.7853981633974483, 0.01], 'Ch3:BLD': [2.181661564992912, 2.356194490192345, 0.01], 'Ch4:BRU': [0.9599310885968811, 3.9269908169872414, 0.01]}
-		```
-	
-	* You can easily plot any microphone array in the dataset to interactively visualize its geometry.
+* And each capsule has polar coordinates (colatitude radians, azimuth radians, and radius meters) associated with it.
 
-		```
-		>>> marco.plot_micarray('Eigenmike')
-		```
-					
-		<img src="docs/img/plot_example.jpg" height="400px">
+	```
+	>>> marco.capsule_coords['Ambeo']
+	{'Ch1:FLU': [0.9599310885968811, 0.7853981633974483, 0.01], 'Ch2:FRD': [2.181661564992912, -0.7853981633974483, 0.01], 'Ch3:BLD': [2.181661564992912, 2.356194490192345, 0.01], 'Ch4:BRU': [0.9599310885968811, 3.9269908169872414, 0.01]}
+	```
 
-	* The dataset is made of sound sources that were recorded by all microphone arrays simultaneously. You can list all available sound sources (more details in the official [3D-MARCo documentation](https://zenodo.org/record/3477602#.YZBqbC1h1pS)).
+* You can easily plot any microphone array in the dataset to interactively visualize its geometry.
 
-		```
-		>>> marco.clips_list
-		['impulse_response+45d', 'single_sources-75d', 'impulse_response-90d', 'impulse_response-30d', 'single_sources-15d', 'single_sources-30d', 'organ', 'impulse_response0deg', 'acapella', 'single_sources-90d', 'piano_solo_2', 'impulse_response-75d', 'impulse_response+75d', 'impulse_response+15d', 'single_sources-45d', 'single_sources0deg', 'single_sources-60d', 'impulse_response-45d', 'impulse_response+60d', 'impulse_response-60d', 'piano_solo_1', 'impulse_response+90d', 'trio', 'quartet', 'impulse_response-15d', 'impulse_response+30d']
-		```
+	```
+	>>> marco.plot_micarray('Eigenmike')
+	```
+				
+	<img src="docs/img/plot_example.jpg" height="400px">
 
-	* You can load the audio of any of these sound sources (as a numpy array), recorded by any microphone array in the dataset in A-format (raw capsules).
+* The dataset is made of sound sources that were recorded by all microphone arrays simultaneously. You can list all available sound sources (more details in the official [3D-MARCo documentation](https://zenodo.org/record/3477602#.YZBqbC1h1pS)).
 
-		```
-		>>> marco.get_audio_numpy('organ','Ambeo',fmt='A')
-		```
+	```
+	>>> marco.clips_list
+	['impulse_response+45d', 'single_sources-75d', 'impulse_response-90d', 'impulse_response-30d', 'single_sources-15d', 'single_sources-30d', 'organ', 'impulse_response0deg', 'acapella', 'single_sources-90d', 'piano_solo_2', 'impulse_response-75d', 'impulse_response+75d', 'impulse_response+15d', 'single_sources-45d', 'single_sources0deg', 'single_sources-60d', 'impulse_response-45d', 'impulse_response+60d', 'impulse_response-60d', 'piano_solo_1', 'impulse_response+90d', 'trio', 'quartet', 'impulse_response-15d', 'impulse_response+30d']
+	```
 
-	* Or B-format using micarraylib's simple encoder and specifying an ambisonics order N (N3D-ACN convention).
+* You can load the audio of any of these sound sources (as a numpy array), recorded by any microphone array in the dataset in A-format (raw capsules).
+
+	```
+	>>> marco.get_audio_numpy('organ','Ambeo',fmt='A')
+	```
+
+* Or B-format using micarraylib's simple encoder and specifying an ambisonics order N (N3D-ACN convention).
 
 		```
 		>>> marco.get_audio_numpy('organ','OCT3D',fmt='B',N=2)
 		```
 
-2. Obtaining DCASE task 3 clips and sound event annotations in A and B formats (no ambisonics encoding used since the dataset natively exists in A and B formats).
-
-```
-```
-The same code works with the 2019, 2020, and 2021 versions of the dataset. Just use the desired year.
-
-2. Obtaining clips for each of the microphone arrays used in the 3D-MARCo dataset in the original A format (raw microphone capsule recordings) and encoding them to B format.
-```
-```
-
-3.
+## Example use 2: Working with the 2021 DCASE Task 3 dataset
 
 ## Supported datasets
 
