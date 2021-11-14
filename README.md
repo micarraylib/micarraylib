@@ -205,7 +205,7 @@ Please refer to the [official 2021 DCASE Challenge Task 3 website](http://dcase.
   year={2021},
 }
 ```
-Our DCASE 2021 paper can be found [here](http://dcase.community/documents/workshop2021/proceedings/DCASE2021Workshop_Roman_59.pdf)
+Our DCASE 2021 paper can be found [here](http://dcase.community/documents/workshop2021/proceedings/DCASE2021Workshop_Roman_59.pdf). Note: the example code in the paper is outdated.
 
 ## Test coverage
 
@@ -229,7 +229,7 @@ micarraylib/utils.py                                  33      0   100%
 ----------------------------------------------------------------------
 TOTAL                                                354      2    99%
 ```
-We have worked hard to make unit testing as thorough as possible, but we can always improve. Please help us writting tests to improve the robustness of `micarraylib`. All useful contributions are always welcome.
+We have worked hard to test our work in `micarraylib` so far, but we can always improve. Please help us writting tests to improve the robustness of `micarraylib`. All useful contributions are always welcome.
 
 ## License
 Shield: [![CC BY 4.0][cc-by-shield]][cc-by]
