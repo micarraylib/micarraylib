@@ -181,7 +181,7 @@ Please refer to the [official 2021 DCASE Challenge Task 3 website](http://dcase.
 	>>> agg = Aggregate(datasets_list,fs=8000)	
 	```
 
-* Now you can access all `micarraylib` dataset objects in the aggregate by using their identifier, as use them as normal. Again, any audio data you retrieve will reflect the sampling rate you specified in the previous step. For example:
+* Now you can access all `micarraylib` dataset objects in the aggregate by their identifier, and use them as normal. Again, any audio data you retrieve will reflect the sampling rate you specified in the previous step. Example:
 
 	```
 	>>> agg.datasets['tau2021sse_nigens'].get_audio_numpy('dev/dev-train/fold1_room1_mix001',fmt='B')
