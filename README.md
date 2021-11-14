@@ -152,6 +152,38 @@ Please refer to the [official 2021 DCASE Challenge Task 3 website](http://dcase.
 	```
 	>>> tau.get_audio_events('dev/dev-train/fold1_room1_mix001')
 	```
+## Example use 3: Aggregating the 2019, 2020, and 2021 DCASE Challenge Task 3 datasets on a single object. 
+
+`micarraylib` also has an `Aggregate` class that can be used to combine datasets. 
+
+* First, define the datasets you want to aggregate (this specific code will also download them).
+
+	```
+	>>> from micarraylib import datasets
+
+	>>> tau2019 = datasets.tau2019sse(data_home='~/datasets')
+	>>> tau2020 = datasets.tau2020sse_nigens(data_home='~/datasets')
+	>>> tau2021 = datasets.tau2021sse_nigens(data_home='~/datasets')
+	```
+* Then define a list of datasets to be aggregated
+
+	```
+	>>> datasets_list = [tau2019, tau2020, tau2021]
+	```
+
+* Next, create the `Aggregate` instance. You should specify the sampling rate that will be applied to all audio files across the datasets in the `Aggregate`.
+
+	```
+	>>> from micarraylib.core import Aggregate
+	
+	>>> agg = Aggregate(datasets_list,fs=8000)	
+	```
+
+* Now you can access all `micarraylib` dataset objects in the aggregate by using their identifier, as use them as normal. Again, any audio data you retrieve will reflect the sampling rate you specified in the previous step. For example:
+
+	```
+	>>> agg.datasets['tau2021sse_nigens'].get_audio_numpy('dev/dev-train/fold1_room1_mix001',fmt='B')
+	```
 
 ## Supported datasets
 

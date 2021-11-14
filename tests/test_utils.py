@@ -73,7 +73,7 @@ def test_get_audio_numpy_resample():
     B = np.array(
         [librosa.load(os.path.join(wavs_dir, w), 24000, mono=False)[0] for w in wavs]
     )
-    assert np.allclose(A, B, atol=1e-6)
+    assert np.allclose(A, B, atol=1e-4)
 
 
 def test_get_audio_numpy_a2b():
