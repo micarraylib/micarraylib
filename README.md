@@ -98,9 +98,9 @@ The [3D-MARCo](https://pure.hud.ac.uk/en/datasets/3d-microphone-array-comparison
 
 * Or B-format using micarraylib's simple encoder and specifying an ambisonics order N (N3D-ACN convention).
 
-		```
-		>>> marco.get_audio_numpy('organ','OCT3D',fmt='B',N=2)
-		```
+	```
+	>>> marco.get_audio_numpy('organ','OCT3D',fmt='B',N=2)
+	```
 
 ## Example use 2: Working with the 2021 DCASE Task 3 dataset
 
