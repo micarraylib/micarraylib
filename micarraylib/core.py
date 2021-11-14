@@ -84,7 +84,7 @@ class Dataset:
         self.capsule_coords = capsule_coords
         self.data_home = data_home
 
-    def get_capsule_coordinates(self, micarray):
+    def get_capsule_coords_numpy(self, micarray):
         """
         returns the capsule coordinates in
         polar form
@@ -128,7 +128,7 @@ class Dataset:
                     micarray, ", ".join(self.array_names)
                 )
             )
-        capsule_coords, capsule_names = self.get_capsule_coordinates(micarray)
+        capsule_coords, capsule_names = self.get_capsule_coords_numpy(micarray)
         capsule_coords_dict = _polar2cart(
             {c: capsule_coords[i] for i, c in enumerate(capsule_names)}, "radians"
         )

@@ -66,7 +66,7 @@ def test_Dataset():
 def test_Dataset_get_capsule_coords():
 
     a = micarraylib.datasets.marco(download=False, data_home="~/")
-    A, B = a.get_capsule_coordinates("OCT3D")
+    A, B = a.get_capsule_coords_numpy("OCT3D")
     C = micarraylib.arraycoords.get_array("OCT3D").standard_coords("polar")
     D = [c for c in C.keys()]
     C = np.array([c for c in C.values()])
@@ -75,7 +75,7 @@ def test_Dataset_get_capsule_coords():
     assert B == D
 
     with pytest.raises(ValueError):
-        a.get_capsule_coordinates("foo")
+        a.get_capsule_coords_numpy("foo")
 
 
 def test_Dataset_plot_micarray():
