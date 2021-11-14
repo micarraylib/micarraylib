@@ -205,7 +205,8 @@ Please refer to the [official 2021 DCASE Challenge Task 3 website](http://dcase.
   year={2021},
 }
 ```
-Our DCASE 2021 paper can be found [here](http://dcase.community/documents/workshop2021/proceedings/DCASE2021Workshop_Roman_59.pdf). Note: the example code in the paper is outdated.
+[Our DCASE 2021 paper can be found here](http://dcase.community/documents/workshop2021/proceedings/DCASE2021Workshop_Roman_59.pdf). 
+Note: the example code in the paper is outdated.
 
 ## Test coverage
 
