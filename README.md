@@ -67,12 +67,20 @@ Also install all dependencies
 		['Ch1:FLU', 'Ch2:FRD', 'Ch3:BLD', 'Ch4:BRU']
 		```
 
-	* And each capsule has polar coordinates (colatitude, azimuth, and radius) associated with it
+	* And each capsule has polar coordinates (colatitude radians, azimuth radians, and radius meters) associated with it
 
 		```
 		>>> marco.capsule_coords['Ambeo']
 		{'Ch1:FLU': [0.9599310885968811, 0.7853981633974483, 0.01], 'Ch2:FRD': [2.181661564992912, -0.7853981633974483, 0.01], 'Ch3:BLD': [2.181661564992912, 2.356194490192345, 0.01], 'Ch4:BRU': [0.9599310885968811, 3.9269908169872414, 0.01]}
 		```
+	
+	* You can easily plot any microphone array in the dataset to interactively visualize its geometry
+
+		```
+		>>> marco.plot_micarray('Ambeo')
+		```
+					
+		<img src="docs/img/plot_example.jpg" height="200px">
 
 1. Obtaining DCASE task 3 clips and sound event annotations in A and B formats (no ambisonics encoding used since the dataset natively exists in A and B formats).
 
