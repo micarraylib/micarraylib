@@ -47,13 +47,13 @@ The [3D-MARCo](https://pure.hud.ac.uk/en/datasets/3d-microphone-array-comparison
 * You can download and initialize the 3D-MARCO dataset. The data will be downloaded and unzipped to a directory called datasets in your home path (download may take a while).
 
 	```
-	>>> marco = datasets.marco(data_home='~/datasets')
+	>>> marco = datasets.marco(data_home='/path/to/datasets')
 	```
 
 * Alternatively, just load the dataset if you already have it.
 
 	```
-	>>> marco = datasets.marco(download=False,data_home='~/datasets/marco')
+	>>> marco = datasets.marco(download=False,data_home='/path/to/datasets/marco')
 	```
 
 * Now you can list the microphone arrays available using.
@@ -139,13 +139,13 @@ Please refer to the [official 2021 DCASE Challenge Task 3 website](http://dcase.
 * You can download and initialize the 2021 DCASE Challenge task 3. The data will be downloaded and unzipped to a directory called datasets in your home path (download may take a while).
 
 	```
-	>>> tau = datasets.tau2021sse_nigens(data_home='~/datasets')
+	>>> tau = datasets.tau2021sse_nigens(data_home='/path/to/datasets')
 	```
 
 * Alternatively, just load the dataset if you already have it.
 
 	```
-	>>> tau = datasets.tau2021sse_nigens(download=False,data_home='~/datasets/tau2021sse_nigens')
+	>>> tau = datasets.tau2021sse_nigens(download=False,data_home='/path/to/datasets/tau2021sse_nigens')
 	```
 
 * Now you can list the only microphone array available using.
@@ -183,9 +183,9 @@ Please refer to the [official 2021 DCASE Challenge Task 3 website](http://dcase.
 	```
 	>>> from micarraylib import datasets
 
-	>>> tau2019 = datasets.tau2019sse(data_home='~/datasets')
-	>>> tau2020 = datasets.tau2020sse_nigens(data_home='~/datasets')
-	>>> tau2021 = datasets.tau2021sse_nigens(data_home='~/datasets')
+	>>> tau2019 = datasets.tau2019sse(data_home='/path/to/datasets')
+	>>> tau2020 = datasets.tau2020sse_nigens(data_home='/path/to/datasets')
+	>>> tau2021 = datasets.tau2021sse_nigens(data_home='/path/to/datasets')
 	```
 * Then define a list of datasets to be aggregated
 
