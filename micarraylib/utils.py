@@ -5,7 +5,7 @@ import librosa
 
 
 def a2b(N, audio_numpy, capsule_coords):
-    
+
     """
     encodes recordings from microphone array
     capsules (raw A-format) to B-format
