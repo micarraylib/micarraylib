@@ -6,10 +6,6 @@ import librosa
 
 def a2b(N, audio_numpy, capsule_coords):
     
-    print("N: ",N)
-    print("audio_numpy: ",audio_numpy)
-    print("capsule_coords: ",capsule_coords)
-    
     """
     encodes recordings from microphone array
     capsules (raw A-format) to B-format
@@ -36,17 +32,6 @@ def a2b(N, audio_numpy, capsule_coords):
 def _get_audio_numpy(
     clip_names, dataset, fmt_in, fmt_out, capsule_coords=None, N=None, fs=None
 ):
-    """
-    print("clip_names: ",clip_names)
-    print("dataset: ",dataset)
-    print("fmt_in: ",fmt_in)
-    print("fmt_out: ",fmt_out)
-    print("capsule_coords: ",capsule_coords)
-    print("N: ",N)
-    print("fs: ",fs)
-    print("\ncapsule_coords type:")
-    print(type(capsule_coords))
-    """
 
     """
     combine clips that correspond to a multitrack recording
@@ -80,25 +65,20 @@ def _get_audio_numpy(
         )
     if fmt_in == "B" and fmt_out == "A":
         raise ValueError("B to A conversion currently not supported")
-    
     if fmt_in == "A" and fmt_out == "B" and capsule_coords == None:
         raise ValueError(
             "To convert between A and B format you must specify capsule coordinates"
         )
-
     audio_data = [all_dataset_clip_names[ac].audio for ac in clip_names]
     audio_array, audio_fs = list(map(list, zip(*audio_data)))
     audio_array = np.squeeze(np.array(audio_array))
-
     if fmt_out == "B" and N != None and (N + 1) ** 2 > len(audio_array):
         raise ValueError(
             "(N+1)^2 should be less than or equal to the number of channels being combined but (N+1)^2 is {} and len(audio_array) is {}".format(
                 (N + 1) ** 2, len(audio_array)
             )
         )
-
     audio_fs = audio_fs[0]
-    
     if fs != None and audio_fs != fs:
         audio_array = librosa.resample(audio_array, audio_fs, fs)
     if fmt_in == fmt_out:
