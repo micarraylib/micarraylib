@@ -32,10 +32,20 @@ def test_Aggregate():
     data_dir = "tests/resources/datasets/marco"
     A = C.datasets["marco"].get_audio_numpy("impulse_response+90d", "OCT3D")
     wavs_dir = os.path.join(data_dir, "3D-MARCo Impulse Responses/01_Speaker_+90deg_3m")
-    wavs = os.listdir(wavs_dir)
-    wavs.sort()
+
+    OCT3D_test_wavs = [
+        "+90deg_010_OCT3D_1_FL.wav",
+        "+90deg_011_OCT3D_2_FR.wav",
+        "+90deg_012_OCT3D_3_FC.wav",
+        "+90deg_013_OCT3D_4_RL.wav",
+        "+90deg_014_OCT3D_5_RR.wav",
+        "+90deg_015_OCT3D_6_FLh_1m.wav",
+        "+90deg_016_OCT3D_7_FRh_1m.wav",
+        "+90deg_017_OCT3D_8_RLh_1m.wav",
+        "+90deg_018_OCT3D_9_RRh_1m.wav",
+    ]
     B = np.array(
-        [librosa.load(os.path.join(wavs_dir, w), 48000, mono=False)[0] for w in wavs]
+        [librosa.load(os.path.join(wavs_dir, w), sr=48000, mono=False)[0] for w in OCT3D_test_wavs]
     )
     B = librosa.resample(B, 48000, 8000)
     assert np.allclose(A, B)

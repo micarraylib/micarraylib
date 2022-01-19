@@ -7,6 +7,20 @@ import os
 import librosa
 import warnings
 
+OCT3D_test_wavs = [
+    "+90deg_010_OCT3D_1_FL.wav",
+    "+90deg_011_OCT3D_2_FR.wav",
+    "+90deg_012_OCT3D_3_FC.wav",
+    "+90deg_013_OCT3D_4_RL.wav",
+    "+90deg_014_OCT3D_5_RR.wav",
+    "+90deg_015_OCT3D_6_FLh_1m.wav",
+    "+90deg_016_OCT3D_7_FRh_1m.wav",
+    "+90deg_017_OCT3D_8_RLh_1m.wav",
+    "+90deg_018_OCT3D_9_RRh_1m.wav",
+]
+data_dir = "tests/resources/datasets/marco"
+wavs_dir = os.path.join(data_dir, "3D-MARCo Impulse Responses/01_Speaker_+90deg_3m")
+
 
 def test_a2b():
     SH = sph.sh_matrix(
@@ -39,7 +53,12 @@ def test_get_audio_numpy_valueerrors():
 
     with pytest.raises(ValueError):
         _get_audio_numpy(
-            ["a", "b", "c", "d"], a.dataset, "A", "B", {"a": [0, 0, 0]}, 1000
+            a.micarray_capsule_clip_ids["OCT3D"]["impulse_response+90d"],
+            a.dataset,
+            "A",
+            "B",
+            {"a": [0, 0, 0]},
+            1000,
         )
 
     with pytest.raises(ValueError):
@@ -58,7 +77,6 @@ def test_get_audio_numpy_valueerrors():
 
 
 def test_get_audio_numpy_resample():
-    data_dir = "tests/resources/datasets/marco"
     a = marco(download=False, data_home=data_dir)
     A = _get_audio_numpy(
         a.micarray_capsule_clip_ids["OCT3D"]["impulse_response+90d"],
@@ -67,17 +85,19 @@ def test_get_audio_numpy_resample():
         "A",
         fs=24000,
     )
-    wavs_dir = os.path.join(data_dir, "3D-MARCo Impulse Responses/01_Speaker_+90deg_3m")
-    wavs = os.listdir(wavs_dir)
-    wavs.sort()
     B = np.array(
-        [librosa.load(os.path.join(wavs_dir, w), 24000, mono=False)[0] for w in wavs]
+        [
+            librosa.load(os.path.join(wavs_dir, w), 24000, mono=False)[0]
+            for w in OCT3D_test_wavs
+        ]
     )
     assert np.allclose(A, B, atol=1e-4)
 
 
 def test_get_audio_numpy_a2b():
-    data_dir = "tests/resources/datasets/marco"
+
+    # OCT3D test
+
     a = marco(download=False, data_home=data_dir)
     A = _get_audio_numpy(
         a.micarray_capsule_clip_ids["OCT3D"]["impulse_response+90d"],
@@ -87,11 +107,30 @@ def test_get_audio_numpy_a2b():
         a.capsule_coords["OCT3D"],
         fs=48000,
     )
-    wavs_dir = os.path.join(data_dir, "3D-MARCo Impulse Responses/01_Speaker_+90deg_3m")
-    wavs = os.listdir(wavs_dir)
-    wavs.sort()
     B = np.array(
-        [librosa.load(os.path.join(wavs_dir, w), sr=48000, mono=False)[0] for w in wavs]
+        [
+            librosa.load(os.path.join(wavs_dir, w), 48000, mono=False)[0]
+            for w in OCT3D_test_wavs
+        ]
     )
     B = a2b(2, B, a.capsule_coords["OCT3D"])
+    assert np.allclose(A, B)
+
+    # Eigenmike test
+
+    A = _get_audio_numpy(
+        a.micarray_capsule_clip_ids["Eigenmike"]["impulse_response+90d"],
+        a.dataset,
+        "A",
+        "B",
+        a.capsule_coords["Eigenmike"],
+        N=2,
+        fs=48000,
+    )
+    B = librosa.load(
+        os.path.join(wavs_dir, "+90deg_065_Eigenmike_Raw_32ch.wav"),
+        sr=48000,
+        mono=False,
+    )[0]
+    B = a2b(2, B, a.capsule_coords["Eigenmike"])
     assert np.allclose(A, B)
