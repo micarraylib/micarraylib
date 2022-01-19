@@ -18,7 +18,6 @@ OCT3D_test_wavs = [
     "+90deg_017_OCT3D_8_RLh_1m.wav",
     "+90deg_018_OCT3D_9_RRh_1m.wav",
 ]
-OCT3D_test_wavs.sort()
 data_dir = "tests/resources/datasets/marco"
 wavs_dir = os.path.join(data_dir, "3D-MARCo Impulse Responses/01_Speaker_+90deg_3m")
 
@@ -97,7 +96,7 @@ def test_get_audio_numpy_resample():
 
 def test_get_audio_numpy_a2b():
 
-    # OCT3D test"/+90deg_065_Eigenmike_Raw_32ch.wav"
+    # OCT3D test
 
     a = marco(download=False, data_home=data_dir)
     A = _get_audio_numpy(
