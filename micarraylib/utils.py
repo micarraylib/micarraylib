@@ -74,7 +74,7 @@ def _get_audio_numpy(
     audio_array = np.squeeze(np.array(audio_array))
     if fmt_out == "B" and N != None and (N + 1) ** 2 > len(audio_array):
         raise ValueError(
-            "(N+1)^2 should be less than or equal to the number of channels being combined but (N+1)^2 is {} and len(audio_array) is {}".format(
+            "(N+1)^2 should be less than or equal to the number of capsules being converted to B format, but (N+1)^2 is {} and the number of capsules is {}".format(
                 (N + 1) ** 2, len(audio_array)
             )
         )
