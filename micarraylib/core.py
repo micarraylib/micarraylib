@@ -66,7 +66,8 @@ class Dataset:
     """
 
     def __init__(
-        self, name, fs, array_format, capsule_coords, download=True, data_home=None
+        self, name, fs, array_format, capsule_coords, download=True, data_home=None, partial_download=None,
+            force_overwrite=False, cleanup=False
     ):
 
         if download == False and data_home == None:
@@ -74,7 +75,7 @@ class Dataset:
                 "You must specify the directory with the data in data_home if you do not want to download it."
             )
         self.name = name
-        self.dataset = _initialize(name, data_home, download)
+        self.dataset = _initialize(name, data_home, download, partial_download, force_overwrite, cleanup)
         self.fs = fs
         self.array_names = list(capsule_coords.keys())
         self.array_format = array_format
@@ -145,7 +146,7 @@ class Dataset:
             plt.show()
 
 
-def _initialize(name, data_home=None, download=True):
+def _initialize(name, data_home=None, download=True, partial_download=None, force_overwrite=False, cleanup=False):
     """
     Initializes and downloads the dataset
     using the soundata API
@@ -158,5 +159,5 @@ def _initialize(name, data_home=None, download=True):
     """
     dataset = soundata.initialize(name, data_home)
     if download:
-        dataset.download()
+        dataset.download(partial_download, force_overwrite, cleanup)
     return dataset

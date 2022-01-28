@@ -96,9 +96,9 @@ def test_Dataset_plot_micarray():
 
 def test_initialize():
 
-    a = _initialize("eigenscape", data_home=None, download=False)
+    a = _initialize("eigenscape", data_home=None, download=False, partial_download=None, force_overwrite=False,
+                    cleanup=False)
     assert isinstance(a, soundata.datasets.eigenscape.Dataset)
-
 
 @mock.patch("soundata.datasets.eigenscape.Dataset.download")
 def test_initialize_download_true(mock_method):
