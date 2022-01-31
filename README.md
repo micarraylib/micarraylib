@@ -107,7 +107,7 @@ The [3D-MARCo](https://pure.hud.ac.uk/en/datasets/3d-microphone-array-comparison
 * You can also easily get a numpy array with the capsule coordinates in polar form and a list with the capsule names that correspond to each row in the numpy array.
 
 	```
-	>>> coords_numpy, capsule_names_list = marco.get_capsule_coords_numpy('OCT3D',fmt='B',N=2)
+	>>> coords_numpy, capsule_names_list = marco.get_capsule_coords_numpy('OCT3D')
 
 	>>> print(coords_numpy)
 	[[ 2.33401311  0.85309119  0.64295806]
