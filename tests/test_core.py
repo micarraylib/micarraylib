@@ -45,7 +45,10 @@ def test_Aggregate():
         "+90deg_018_OCT3D_9_RRh_1m.wav",
     ]
     B = np.array(
-        [librosa.load(os.path.join(wavs_dir, w), sr=48000, mono=False)[0] for w in OCT3D_test_wavs]
+        [
+            librosa.load(os.path.join(wavs_dir, w), sr=48000, mono=False)[0]
+            for w in OCT3D_test_wavs
+        ]
     )
     B = librosa.resample(B, 48000, 8000)
     assert np.allclose(A, B)
@@ -96,9 +99,16 @@ def test_Dataset_plot_micarray():
 
 def test_initialize():
 
-    a = _initialize("eigenscape", data_home=None, download=False, partial_download=None, force_overwrite=False,
-                    cleanup=False)
+    a = _initialize(
+        "eigenscape",
+        data_home=None,
+        download=False,
+        partial_download=None,
+        force_overwrite=False,
+        cleanup=False,
+    )
     assert isinstance(a, soundata.datasets.eigenscape.Dataset)
+
 
 @mock.patch("soundata.datasets.eigenscape.Dataset.download")
 def test_initialize_download_true(mock_method):
