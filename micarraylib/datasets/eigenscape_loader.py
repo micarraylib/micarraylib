@@ -67,8 +67,21 @@ class eigenscape_raw(Dataset):
         capsule_coords=eigenscape_capsule_coords,
         download=True,
         data_home=None,
+        partial_download=None,
+        force_overwrite=False,
+        cleanup=False,
     ):
-        super().__init__(name, fs, array_format, capsule_coords, download, data_home)
+        super().__init__(
+            name,
+            fs,
+            array_format,
+            capsule_coords,
+            download,
+            data_home,
+            partial_download,
+            force_overwrite,
+            cleanup,
+        )
 
         self.micarray_clip_ids, self.clips_list = self._sort_clip_ids()
 
@@ -200,8 +213,21 @@ class eigenscape(Dataset):
         capsule_coords=eigenscape_capsule_coords,
         download=True,
         data_home=None,
+        partial_download=None,
+        force_overwrite=False,
+        cleanup=False,
     ):
-        super().__init__(name, fs, array_format, capsule_coords, download, data_home)
+        super().__init__(
+            name,
+            fs,
+            array_format,
+            capsule_coords,
+            download,
+            data_home,
+            partial_download,
+            force_overwrite,
+            cleanup,
+        )
 
         self.micarray_clip_ids, self.clips_list = self._sort_clip_ids()
 

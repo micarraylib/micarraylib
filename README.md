@@ -23,6 +23,9 @@ $ pip install -e .
 ```
 
 Also install all dependencies
+```
+pip install -r requirements.txt
+```
 
 ## Tested dependencies
 
