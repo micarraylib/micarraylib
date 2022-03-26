@@ -30,3 +30,9 @@ def test_marco_get_audio_numpy():
         a.get_audio_numpy("a", "Eigenfoo")
     with pytest.raises(ValueError):
         a.get_audio_numpy("a", "Eigenmike")
+
+
+def test_marco_get_audio_numpy_binaural():
+
+    a = marco_loader.marco(download=False, data_home="tests/resources/datasets/marco")
+    A = a.get_audio_numpy("impulse_response+90d", "OCT3D", fmt="B", N=1, is_binaural_out=True)

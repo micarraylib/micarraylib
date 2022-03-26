@@ -126,7 +126,7 @@ class marco(Dataset):
 
         return clip_ids_sorted, clips_list
 
-    def get_audio_numpy(self, source, micarray, fmt="A", N=None, fs=None):
+    def get_audio_numpy(self, source, micarray, fmt="A", N=None, fs=None, is_binaural_out=False):
         """
         combine single-capsule mono clips to
         form an numpy array with all the audio recorded by
@@ -134,17 +134,18 @@ class marco(Dataset):
         if the user indicates it.
 
         Args:
-            micarray (str): the name of the micarray to
-                get audio for
             source (str): the sound source that was
                 recorded in the audio
+            micarray (str): the name of the micarray to
+                get audio for
             fmt (str): the desired format that we
                 want the audio in (A or B in the
                 ambisonics sense)
             N (int): the order of B-format
             fs (int): the sampling rate we want
                 the audio in (resampling as needed).
-
+            is_binaural_out (boolean): whether the output should be decoded
+                into binaural form
         Returns:
             a numpy array with the audio
 
@@ -172,4 +173,5 @@ class marco(Dataset):
             self.capsule_coords[micarray],
             N,
             fs,
+            is_binaural_out,
         )

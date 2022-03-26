@@ -2,6 +2,7 @@ from spaudiopy import sph
 import numpy as np
 import warnings
 import librosa
+import scipy as sp
 
 
 def a2b(N, audio_numpy, capsule_coords):
@@ -28,9 +29,49 @@ def a2b(N, audio_numpy, capsule_coords):
     Y = np.linalg.pinv(SH)
     return np.dot(Y, audio_numpy)
 
+def b2binaural(audio_numpy, fs, N):
+
+    """
+    decode the audio from B format to binaural
+
+    Args:
+        audio_array (np.array): the audio numpy array in B format
+        fs (int): the target sampling rate
+        N (int): the order of B format. Currently only support 1st order
+
+    Returns:
+        audio_array (np.array): the 2 channel numpy array of the audio
+    """
+
+    W, X, Y, Z = audio_numpy[0], audio_numpy[1], audio_numpy[2], audio_numpy[3]
+    HRTF_FS = 44100
+    h_length = round(200 * float(fs) / HRTF_FS)
+
+    phis = np.array([-125, -55, 0, 55, 125, 180, 0, 0], dtype=np.float32) * np.pi / 180
+    thetas = np.array([0, 0, 0, 0, 0, 0, 90, -45], dtype=np.float32) * np.pi / 180
+    p_idx = [23, 23, 13, 3, 3, 13, 13, 13]
+    t_idx = [9, 9, 9, 9, 9, 9, 25, 0]
+    hrtf = sp.io.loadmat('micarraylib/datasets/hrir_021.mat')
+
+    left = np.zeros(W.size)
+    right = np.zeros(W.size)
+    for i in range(phis.size):
+        w_ft = W + 0.7071 * (
+               X * np.cos(phis[i]) * np.cos(thetas[i]) +
+               Y * np.sin(phis[i]) * np.cos(thetas[i]) +
+               Z * np.sin(thetas[i]))
+
+        hrtf_l = sp.signal.resample(hrtf['hrir_l'][p_idx[i], t_idx[i], :], h_length)
+        hrtf_r = sp.signal.resample(hrtf['hrir_r'][p_idx[i], t_idx[i], :], h_length)
+
+        left += sp.signal.convolve(w_ft, hrtf_l, mode='same')
+        right += sp.signal.convolve(w_ft, hrtf_r, mode='same')
+
+    return np.vstack((left, right)) / 4
+
 
 def _get_audio_numpy(
-    clip_names, dataset, fmt_in, fmt_out, capsule_coords=None, N=None, fs=None
+    clip_names, dataset, fmt_in, fmt_out, capsule_coords=None, N=None, fs=None, is_binaural_out=False
 ):
 
     """
@@ -52,6 +93,8 @@ def _get_audio_numpy(
             and azimuth in radians)
         N (int): the order of B format
         fs (int): the target sampling rate
+        is_binaural_out (boolean): whether the output should be decoded
+            into binaural form
 
     Returns:
         audio_array (np.array): the numpy array with the audio
@@ -80,7 +123,7 @@ def _get_audio_numpy(
         )
     audio_fs = audio_fs[0]
     if fs != None and audio_fs != fs:
-        audio_array = librosa.resample(audio_array, audio_fs, fs)
+        audio_array, audio_fs = librosa.resample(audio_array, audio_fs, fs), fs
     if fmt_in == fmt_out:
         if N != None:
             warnings.warn(UserWarning("N parameter was specified but not used"))
@@ -88,4 +131,6 @@ def _get_audio_numpy(
     if fmt_in == "A" and fmt_out == "B":
         N = int(np.sqrt(len(clip_names)) - 1) if N == None else N
         audio_array = a2b(N, audio_array, capsule_coords)
+        if is_binaural_out:
+            audio_array = b2binaural(audio_array, audio_fs, N)
         return audio_array
