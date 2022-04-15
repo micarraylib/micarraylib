@@ -33,9 +33,20 @@ $ pip install -r requirements.txt
 | --------- | ------- |
 | Python    | 3.9.7   |
 | librosa   | 0.8.1   |
-| soundata  | 0.1.0   |
+| soundata  | 0.1.2   |
 | spaudiopy | 0.1.4   |
 | pytest    | 6.2.5   |
+
+## Supported datasets
+
+| Dataset name      | micarraylib/soundata identifier  |
+| ----------------- | -------------------------------- |
+| DCASE task 3 2022 | `starss2022`                     |
+| DCASE task 3 2021 | `tau2021sse_nigens`              |
+| DCASE task 3 2020 | `tau2020sse_nigens`              |
+| DCASE task 3 2019 | `tau2019sse`                     |
+| 3D-MARCo          | `marco`                          |
+| EigenScape        | `eigenscape` and `eigenscape_raw`|
 
 ## Example use 1: Working with the 3D-MARCo dataset
 
@@ -209,16 +220,6 @@ Please refer to the [official 2021 DCASE Challenge Task 3 website](http://dcase.
 	```
 	>>> agg.datasets['tau2021sse_nigens'].get_audio_numpy('dev/dev-train/fold1_room1_mix001',fmt='B')
 	```
-
-## Supported datasets
-
-| Dataset name      | micarraylib/soundata identifier  |
-| ----------------- | -------------------------------- |
-| DCASE task 3 2019 | `tau2019sse`                     |
-| DCASE task 3 2020 | `tau2020sse_nigens`              |
-| DCASE task 3 2021 | `tau2021sse_nigens`              |
-| 3D-MARCo          | `marco`                          |
-| EigenScape        | `eigenscape` and `eigenscape_raw`|
 
 ## Citing
 ```
