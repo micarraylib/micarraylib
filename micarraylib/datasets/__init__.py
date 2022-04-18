@@ -1,8 +1,29 @@
+from micarraylib.datasets import starss2022_loader
 from micarraylib.datasets import tau2021sse_nigens_loader
 from micarraylib.datasets import tau2020sse_nigens_loader
 from micarraylib.datasets import tau2019sse_loader
 from micarraylib.datasets import eigenscape_loader
 from micarraylib.datasets import marco_loader
+
+
+def starss2022(
+    download=True,
+    data_home=None,
+    partial_download=None,
+    force_overwrite=False,
+    cleanup=False,
+):
+    """
+    helper to load the starss2022 Dataset class
+    """
+
+    return starss2022_loader.starss2022(
+        download=download,
+        data_home=data_home,
+        partial_download=partial_download,
+        force_overwrite=force_overwrite,
+        cleanup=cleanup,
+    )
 
 
 def tau2021sse_nigens(

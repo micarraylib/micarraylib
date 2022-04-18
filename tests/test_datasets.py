@@ -1,6 +1,14 @@
 import micarraylib.datasets
 
 
+def test_starss2022_helper():
+
+    a = micarraylib.datasets.starss2022(download=False, data_home="~/")
+    assert isinstance(
+        a, micarraylib.datasets.starss2022_loader.starss2022
+    )
+
+
 def test_tau2021sse_nigens_helper():
 
     a = micarraylib.datasets.tau2021sse_nigens(download=False, data_home="~/")
